@@ -7,6 +7,7 @@ export class Personaje {
     vida;
     puntos;
     vidaMaxima = 200;
+    monedas = 3000;
     inventario;
 
     constructor(nombre, ataque, defensa, puntos, vidaMaxima) {
@@ -39,6 +40,11 @@ export class Personaje {
             .reduce((total, productos) => total + (productos.defensa ?? productos.bonus?.defensa ?? 0), 0);
     }
 
+    get vidaTotal() {
+        return this.vidaMaxima + this.inventario
+            .reduce((total, obj) => total + (obj.bonus?.vida ?? 0), 0);
+    }
+
     inventarioPorTipo() {
         return groupBy(this.inventario, productos => productos.tipo);
     }
@@ -46,6 +52,7 @@ export class Personaje {
     mostrarJugador() {
         return `
         👤 ${this.nombre}
+        💰 Monedas: ${this.monedas}
         ❤ Vida: ${this.vida}/${this.vidaMaxima}
         ⭐ Puntos: ${this.puntos}
         ⚔ Ataque total: ${this.ataqueTotal}

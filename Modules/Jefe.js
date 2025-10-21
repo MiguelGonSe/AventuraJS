@@ -2,13 +2,13 @@ import { Enemigo } from './Enemigo.js';
 
 export class Jefe extends Enemigo {
     habilidad;
-    multiplicadorDanio;
+    multiplicadorDanio = 1.25;
 
-    constructor(nombre, ataque, defensa, vida, habilidad, multiplicadorDanio = 1.25) {
+    constructor(nombre, ataque, defensa, vida, habilidad) {
         super(nombre, ataque, defensa, vida);
         this.tipo = 'Jefe';
+        this.ataque = ataque * this.multiplicadorDanio;
         this.habilidad = habilidad;
-        this.multiplicadorDanio = multiplicadorDanio;
     }
 
     presentar() {

@@ -49,7 +49,7 @@ export class Personaje {
         return groupBy(this.inventario, productos => productos.tipo);
     }
 
-    mostrarJugador() {
+    mostrarPersonaje() {
         return `
         👤 ${this.nombre}
         💰 Monedas: ${this.monedas}

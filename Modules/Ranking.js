@@ -16,7 +16,8 @@ export function batalla(jugador, enemigo) {
         vidaEnemigo -= danioJugador;
         console.log(`${jugador.nombre} ataca y deja a ${enemigo.nombre} con ${Math.max(vidaEnemigo, 0)} de vida`);
 
-        if (vidaEnemigo <= 0) break;
+        if (vidaEnemigo <= 0)
+            break;
 
         vidaJugador -= danioEnemigo;
         console.log(`${enemigo.nombre} contraataca y deja a ${jugador.nombre} con ${Math.max(vidaJugador, 0)} de vida`);

@@ -3,13 +3,54 @@
 
 <head>
     <title>Aventura en el reino JS</title>
+    <link rel=stylesheet type=text/css href=./Css.css>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="Main.js" type="module" defer></script>
+
 </head>
 
 <body>
-    <h1>Acceder a la consola para visualizar</h1>
+
+    <div id="choose_player">
+
+        <h2>¡Elige tu personaje!</h2>
+        <button id="btnL"><img src="IMG/legolas.webp" alt="Elfo" width="50"><br>Elegir</button>
+        <button id="btnG"><img src="IMG/guerrero.png" alt="Guerrero" width="90"><br>Elegir</button>
+        <button id="btnO"><img src="IMG/orco.png" alt="Enano" width="90"><br>Elegir</button>
+
+    </div>
+
+    <div id="look_stats" class="scene">
+
+        <img id="chosenImg" src="" alt="Personaje elegido" width="100">
+        <p>Vida: <span id="vida"></span></p>
+        <p>Ataque: <span id="ataque"></span></p>
+        <p>Defensa: <span id="defensa"></span></p>
+        <p>Puntos: <span id="puntos"></span></p>
+
+        <button>Ir al market</button>
+        <button id="back_choose_player">Volver</button>
+
+    </div>
+
+
+    <div id="market" class="scene">
+        <div id="market-container">
+        </div>
+        <button>Comprar</button>
+    </div>
+
+    <!--
+    <div id="player" class="scene">
+        <button>Continuar</button>
+    </div>
+
+    <div id="enemies" class="scene">
+        <div id="enemies-container">
+        </div>
+        <button>Continuar</button>
+    </div> -->
 </body>
 
 </html>

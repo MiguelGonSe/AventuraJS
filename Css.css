@@ -2,6 +2,14 @@
     display: none;
 }
 
-.scene.active {
+.scene_active {
     display: block;
+}
+
+#choose_player{
+    text-align: center;
+}
+
+#look_stats{
+    text-align: center;
 }

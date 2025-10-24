@@ -11,48 +11,48 @@
 </head>
 
 <body>
+    <main>
 
-    <div id="choose_player">
+        <div id="choose_player">
 
-        <h2>¡Elige tu personaje!</h2>
-        <button id="btnL"><img src="IMG/legolas.webp" alt="Elfo" width="50"><br>Elegir</button>
-        <button id="btnG"><img src="IMG/guerrero.png" alt="Guerrero" width="90"><br>Elegir</button>
-        <button id="btnO"><img src="IMG/orco.png" alt="Enano" width="90"><br>Elegir</button>
+            <h2>¡Elige tu personaje!</h2>
+            <button id="btnL"><img src="IMG/legolas.webp" alt="Elfo" width="50"><br>Elegir</button>
+            <button id="btnG"><img src="IMG/guerrero.png" alt="Guerrero" width="90"><br>Elegir</button>
+            <button id="btnO"><img src="IMG/orco.png" alt="Enano" width="90"><br>Elegir</button>
 
-    </div>
-
-    <div id="look_stats" class="scene">
-        <br>
-        <img id="chosenImg" src="" alt="Personaje elegido" width="100"><br><br>
-
-        <label for="nombre">Elige tu nombre:</label>
-        <input type="text" id="nombre" name="nombre" maxlength="20" required>
-
-        <p>Vida: <span id="vida"></span></p>
-        <p>Ataque: <span id="ataque"></span></p>
-        <p>Defensa: <span id="defensa"></span></p>
-        <p>Puntos: <span id="puntos"></span></p>
-        <p>Monedas: <span id="monedas"></span></p>
-
-        <button id="ir_market">Ir al market</button>
-        <button id="back_choose_player">Volver</button>
-    </div>
-
-
-    <div id="look_market" class="scene">
-
-        <img id="chosenImg" src="" alt="Personaje elegido" width="100"><br><br>
-        <p>Nombre: <span id="nombre"></span></p>
-        <p>Elije lo que quieres comprar. Tienes : <span id="monedas"></span> monedas</p>
-
-        <div id="marketItems">
-        <!-- <img id="imgMarketItems" src="" alt="Imagen Market" width="100"><br> -->
         </div>
 
-        <button>Comprar</button>
-    </div>
+        <div id="look_stats" class="scene">
+            <br>
+            <img id="chosenImg" src="" alt="Personaje elegido" width="100"><br><br>
 
-    <!--
+            <label for="nombre">Elige tu nombre:</label>
+            <input type="text" id="nombre" name="nombre" maxlength="20" required>
+
+            <p>Vida: <span id="vida"></span></p>
+            <p>Ataque: <span id="ataque"></span></p>
+            <p>Defensa: <span id="defensa"></span></p>
+            <p>Puntos: <span id="puntos"></span></p>
+            <p>Monedas: <span id="monedas"></span></p>
+
+            <button id="ir_market">Ir al market</button>
+            <button id="back_choose_player">Volver</button>
+        </div>
+
+
+        <div id="look_market" class="scene">
+
+            <img id="chosenImg" src="" alt="Personaje elegido" width="100"><br><br>
+            <p>Nombre: <span id="nombre"></span></p>
+            <p>Elije lo que quieres comprar. Tienes : <span id="monedas"></span> monedas</p>
+            <p>Elije sabiamente, tu futuro está en ello.</p>
+
+            <div id="marketItems"></div>
+
+            <button>Comprar</button>
+        </div>
+
+        <!--
     <div id="player" class="scene">
         <button>Continuar</button>
     </div>
@@ -62,6 +62,11 @@
         </div>
         <button>Continuar</button>
     </div> -->
+    </main>
+    
+    <footer>
+
+    </footer>
 </body>
 
 </html>

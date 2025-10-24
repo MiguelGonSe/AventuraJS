@@ -66,11 +66,16 @@ document.getElementById('ir_market').addEventListener('click', function () {
     const inputNombre = document.getElementById('nombre');
     const nombreJugador = inputNombre.value.trim() || jugador.nombre;
     const monedasJugador = jugador.monedas;
+
     mostrarMarket(imagen, nombreJugador, monedasJugador);
+
     const marketItemsDiv = document.getElementById('marketItems');
     marketItemsDiv.textContent = "";
+
     objetos.forEach(obj => {
-        marketItemsDiv.textContent += obj.mostrarInfo();
+        const itemDiv = document.createElement('div');
+        itemDiv.innerHTML = obj.mostrarInfo();
+        marketItemsDiv.appendChild(itemDiv);
     });
 });
 

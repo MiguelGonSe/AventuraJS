@@ -4,6 +4,7 @@ export class Objeto {
     rareza;
     tipo;
     bonus;
+    imagen;
 
     constructor(nombre, precio, rareza, tipo, bonus) {
         this.nombre = nombre;
@@ -11,11 +12,22 @@ export class Objeto {
         this.rareza = rareza;
         this.tipo = tipo;
         this.bonus = bonus;
-
+        this.imagen = this.getImagen();
     }
 
     mostrarInfo() {
-        return `Nombre: ${this.nombre}, Precio: ${this.precio}, Rareza: ${this.rareza}, Tipo: ${this.tipo}, Bonus: ${this.bonus}`;
+        return `<img src="${this.imagen}" alt="${this.nombre}" width="50" height="50"/> <p><strong>${this.nombre}</strong><br> ${this.precio} monedas <br> Bonus: ${this.bonus}</p>`;
+    }
+
+
+    getImagen() {
+        if (this.tipo === 'Arma') {
+            return "./IMG/arma.png";
+        } else if (this.tipo === 'Armadura') {
+            return "./IMG/escudo.png";
+        } else {
+            return "./IMG/pocion.png";
+        }
     }
 
     aplicarDescuento(porcentaje) {

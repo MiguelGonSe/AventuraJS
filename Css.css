@@ -6,10 +6,55 @@
     display: block;
 }
 
-#choose_player{
+#choose_player {
     text-align: center;
 }
 
-#look_stats{
+#look_stats {
     text-align: center;
+}
+
+#look_market {
+    text-align: center;
+}
+
+#marketItems {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    margin-bottom: 10px;
+    margin: 4px 10%;
+
+    Div {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    img{
+        margin-top: 5px;
+    }
+}
+
+@media (width < 640px) {
+    #marketItems {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+    }
+}
+
+main{
+
+}
+
+main>div{
+    height: 100%;
+}
+
+footer,header{
+    display: flex;
+    justify-content: center;
 }

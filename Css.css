@@ -2,7 +2,7 @@
     display: none;
 }
 
-.scene_active {
+.active {
     display: block;
 }
 
@@ -18,24 +18,32 @@
     text-align: center;
 }
 
-#marketItems {
+#player {
+    text-align: center;
+}
+
+#marketItems,
+#purchasedItems,
+#playerEquipamiento {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(3, 1fr);
     margin-bottom: 10px;
     margin: 4px 10%;
-
-    Div {
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-        margin-top: 5px;
-        margin-bottom: 5px;
-    }
-
-    img{
-        margin-top: 5px;
-    }
 }
+
+#marketItems div,
+#purchasedItems div,
+#playerEquipamiento div {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#marketItems img {
+    margin-top: 5px;
+}
+
 
 @media (width < 640px) {
     #marketItems {
@@ -46,15 +54,14 @@
     }
 }
 
-main{
+main {}
 
-}
-
-main>div{
+main>div {
     height: 100%;
 }
 
-footer,header{
+footer,
+header {
     display: flex;
     justify-content: center;
 }

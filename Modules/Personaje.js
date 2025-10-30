@@ -10,8 +10,7 @@ export class Personaje {
     monedas = 3000;
     inventario;
 
-    constructor(nombre, ataque, defensa, puntos, vidaMaxima) {
-        this.nombre = nombre;
+    constructor(ataque, defensa, puntos, vidaMaxima) {
         this.ataque = ataque;
         this.defensa = defensa;
         this.puntos = puntos;

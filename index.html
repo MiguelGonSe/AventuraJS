@@ -13,18 +13,18 @@
 <body>
     <main>
 
-        <div id="choose_player">
+        <div id="choose_player" class="scene active">
 
             <h2>¡Elige tu personaje!</h2>
-            <button id="btnL"><img src="IMG/legolas.webp" alt="Elfo" width="50"><br>Elegir</button>
-            <button id="btnG"><img src="IMG/guerrero.png" alt="Guerrero" width="90"><br>Elegir</button>
-            <button id="btnO"><img src="IMG/orco.png" alt="Enano" width="90"><br>Elegir</button>
+            <button id="botonElfo"><img src="IMG/legolas.webp" alt="Elfo" width="50"><br>Elegir</button>
+            <button id="botonGuerrero"><img src="IMG/guerrero.png" alt="Guerrero" width="90"><br>Elegir</button>
+            <button id="botonOrco"><img src="IMG/orco.png" alt="Enano" width="90"><br>Elegir</button>
 
         </div>
 
         <div id="look_stats" class="scene">
             <br>
-            <img id="chosenImg" src="" alt="Personaje elegido" width="100"><br><br>
+            <img id="chosenImgStats" src="" alt="Personaje elegido" width="100">
 
             <label for="nombre">Elige tu nombre:</label>
             <input type="text" id="nombre" name="nombre" maxlength="20" required>
@@ -42,28 +42,43 @@
 
         <div id="look_market" class="scene">
 
-            <img id="chosenImg" src="" alt="Personaje elegido" width="100"><br><br>
-            <p>Nombre: <span id="nombre"></span></p>
-            <p>Elije lo que quieres comprar. Tienes : <span id="monedas"></span> monedas</p>
-            <p>Elije sabiamente, tu futuro está en ello.</p>
+            <img id="chosenImgMarket" src="" alt="Personaje elegido" width="100">
+            <p>Nombre: <span id="nombreMarket"></span></p>
+            <p>Elige lo que quieres comprar. Tienes : <span id="monedasMarket"></span> monedas</p>
+            <p>Elige sabiamente, tu futuro está en ello.</p>
 
             <div id="marketItems"></div>
 
-            <button>Comprar</button>
+            <button id="comprar">Comprar</button>
+
+            <div id="purchasedItems"></div>
+        </div>
+
+
+        <div id="player" class="scene">
+
+            <img id="playerImg" src="" alt="Jugador" width="100">
+            <p>Nombre: <span id="playerNombre"></span></p>
+            <p>Vida: <span id="playerVida"></span></p>
+            <p>Ataque: <span id="playerAtaque"></span></p>
+            <p>Defensa: <span id="playerDefensa"></span></p>
+            <p>Puntos: <span id="playerPuntos"></span></p>
+            <p>Monedas: <span id="playerMonedas"></span></p>
+            <p>Equipamiento:</p>
+            <div id="playerEquipamiento"></div>
+
+            <button>Empezar</button>
+
         </div>
 
         <!--
-    <div id="player" class="scene">
-        <button>Continuar</button>
-    </div>
-
     <div id="enemies" class="scene">
         <div id="enemies-container">
         </div>
         <button>Continuar</button>
     </div> -->
     </main>
-    
+
     <footer>
 
     </footer>

@@ -16,7 +16,8 @@ export class Objeto {
     }
 
     mostrarInfo() {
-        return `<img src="${this.imagen}" alt="${this.nombre}" width="50" height="50"/> <p><strong>${this.nombre}</strong><br> ${this.precio} monedas <br> Bonus: ${this.bonus}</p>`;
+        const bonusStr = Object.entries(this.bonus).map(([k, v]) => `${k}: ${v}`).join(', ');
+        return `<img src="${this.imagen}" alt="${this.nombre}" width="50" height="50"/> <p><strong>${this.nombre}</strong><br> ${this.precio} monedas <br> Bonus: ${bonusStr}</p>`;
     }
 
 

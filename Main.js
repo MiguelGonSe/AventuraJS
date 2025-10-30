@@ -1,4 +1,5 @@
 import { Personaje } from './Modules/Personaje.js';
+import { Enemigo } from './Modules/Enemigo.js';
 import { Jefe } from './Modules/Jefe.js';
 import { objetos } from './Modules/Mercado.js';
 import { agruparPorNivel, batalla, mostrarRanking } from './Modules/Ranking.js';
@@ -7,6 +8,7 @@ import { showScene } from './Utils/Utils.js';
 let jugador;
 let imagen = "";
 const comprado = new Map();
+const objetosComprados = [];
 
 // ELECCIÓN DE JUGADOR
 document.getElementById('botonElfo').addEventListener('click', function () {
@@ -68,6 +70,11 @@ document.getElementById('ir_market').addEventListener('click', function () {
                 jugador.monedas += obj.precio;
                 document.getElementById('monedasMarket').textContent = jugador.monedas;
                 comprado.delete(index);
+                itemDiv.style.backgroundColor = '';
+
+                const i = objetosComprados.indexOf(obj); // ELIMINAR
+                if (i > -1) objetosComprados.splice(i, 1);
+
             } else {
                 // Si no está comprado, verificamos monedas y compramos
                 if (jugador.monedas >= obj.precio) {
@@ -79,6 +86,9 @@ document.getElementById('ir_market').addEventListener('click', function () {
                     purchasedDiv.appendChild(purchasedItem);
 
                     comprado.set(index, purchasedItem);
+                    objetosComprados.push(obj);
+
+                    itemDiv.style.backgroundColor = 'red';
                 } else {
                     alert("No tienes suficientes monedas para comprar esto.");
                 }
@@ -108,20 +118,45 @@ document.getElementById('comprar').addEventListener('click', function () {
 function mostrarJugador() {
     showScene('player');
 
-    document.getElementById('playerImg').src = imagen;
+    let ataqueTotal = jugador.ataque;
+    let defensaTotal = jugador.defensa;
+    let vidaTotal = jugador.vida;
 
+    objetosComprados.forEach(obj => {
+        ataqueTotal += obj.bonus.ataque || 0;
+        defensaTotal += obj.bonus.defensa || 0;
+        vidaTotal += obj.bonus.vida || 0;
+    });
+
+    document.getElementById('playerImg').src = imagen;
     document.getElementById('playerNombre').textContent = jugador.nombre;
-    document.getElementById('playerVida').textContent = jugador.vida;
-    document.getElementById('playerAtaque').textContent = jugador.ataque;
-    document.getElementById('playerDefensa').textContent = jugador.defensa;
+    document.getElementById('playerVida').textContent = vidaTotal;
+    document.getElementById('playerAtaque').textContent = ataqueTotal;
+    document.getElementById('playerDefensa').textContent = defensaTotal;
     document.getElementById('playerPuntos').textContent = jugador.puntos;
     document.getElementById('playerMonedas').textContent = jugador.monedas;
 
     const equipDiv = document.getElementById('playerEquipamiento');
     equipDiv.textContent = "";
 
-    comprado.forEach((itemDiv) => {
-        const clone = itemDiv.cloneNode(true);
-        equipDiv.appendChild(clone);
+    objetosComprados.forEach(obj => {
+        const div = document.createElement('div');
+        div.innerHTML = obj.mostrarInfo();
+        equipDiv.appendChild(div);
     });
+}
+
+//BATALLA
+document.getElementById('empezar').addEventListener('click', function () {
+    const imagenPersonaje = document.getElementById('chosenImgMarket').src;
+    imagen = imagenPersonaje; 
+    mostrarBatalla();
+});
+
+function mostrarBatalla() {
+    showScene('enemigos');
+    document.getElementById('playerImagen').src = imagen;
+
+    const enemigo = new Enemigo('Minotauro', 200, 25, 50);
+
 }

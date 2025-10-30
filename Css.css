@@ -6,19 +6,11 @@
     display: block;
 }
 
-#choose_player {
-    text-align: center;
-}
-
-#look_stats {
-    text-align: center;
-}
-
-#look_market {
-    text-align: center;
-}
-
-#player {
+#choose_player,
+#look_stats,
+#look_market,
+#player,
+#enemigos {
     text-align: center;
 }
 

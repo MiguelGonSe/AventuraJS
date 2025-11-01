@@ -6,8 +6,8 @@ export class Personaje {
     defensa;
     vida;
     puntos;
-    vidaMaxima = 200;
-    monedas = 3000;
+    vidaMaxima = 500;
+    monedas = 4000;
     inventario;
 
     constructor(ataque, defensa, puntos, vidaMaxima) {

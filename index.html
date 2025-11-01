@@ -7,19 +7,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="Main.js" type="module" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
 </head>
 
 <body>
     <main>
+        <h1 id="titulo">AVENTURA EN EL REINO DE JS</h1>
 
         <div id="choose_player" class="scene active">
-
             <h2>¡Elige tu personaje!</h2>
-            <button id="botonElfo"><img src="IMG/legolas.webp" alt="Elfo" width="50"><br>Elegir</button>
-            <button id="botonGuerrero"><img src="IMG/guerrero.png" alt="Guerrero" width="90"><br>Elegir</button>
-            <button id="botonOrco"><img src="IMG/orco.png" alt="Enano" width="90"><br>Elegir</button>
-
+            <button id="botonElfo" class="eleccion"><img src="IMG/legolas.webp" alt="Elfo"><br>Elegir</button>
+            <button id="botonGuerrero" class="eleccion"><img src="IMG/guerrero.png" alt="Guerrero"><br>Elegir</button>
+            <button id="botonOrco" class="eleccion"><img src="IMG/orco.png" alt="Enano"><br>Elegir</button>
         </div>
 
         <div id="look_stats" class="scene">
@@ -71,20 +71,40 @@
         </div>
 
 
-        <div id="enemigos" class="scene">
+        <div id="enemigo" class="scene">
             <h2>¡Batalla contra el Minotauro!</h2>
-            <div id="pantallaBatalla">
-                <img id="playerImagen" src="" alt="Jugador" width="150">
-                <div id="logicaBatalla"></div>
-                <img src="IMG/minotauro.webp" alt="Enemigo" width="150">
-            </div>
 
+            <div id="pantallaBatalla">
+                <img id="playerImagen" src="" alt="Jugador" width="250">
+                <div id="logicaBatalla"></div>
+                <img src="IMG/minotauro.webp" alt="Enemigo" width="250">
+            </div>
+            <button id="finEnemigo">Fin</button>
         </div>
+
+        <div id="jefe" class="scene">
+            <h2>¡JA JA JA!</h2>
+            <h2>¿Que te crees, que esto había acabado?</h2>
+
+            <div id="pantallaBatalla">
+                <img id="playerJugadorImagen" src="" alt="Jugador" width="250">
+                <div id="logicaBatallaJefe"></div>
+                <img src="IMG/dragon.png" alt="Enemigo" width="250">
+
+            </div>
+            <button id="fin">Fin</button>
+        </div>
+
+        <div id="ranking" class="scene">
+            <div id="ranking_final"></div>
+            <button id="volver_inicio">Volver</button>
+        </div>
+
     </main>
 
-    <footer>
-
-    </footer>
+<footer id="footer">
+    © 2025 AVENTURA EN JS - Todos los derechos reservados
+</footer>
 </body>
 
 </html>

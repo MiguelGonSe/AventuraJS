@@ -2,7 +2,7 @@ import { Personaje } from './Modules/Personaje.js';
 import { Enemigo } from './Modules/Enemigo.js';
 import { Jefe } from './Modules/Jefe.js';
 import { objetos } from './Modules/Mercado.js';
-import { agruparPorNivel, batalla, mostrarRanking } from './Modules/Ranking.js';
+import { batallaJefe, batalla, mostrarRanking } from './Modules/Ranking.js';
 import { showScene } from './Utils/Utils.js';
 
 let jugador;
@@ -12,19 +12,19 @@ const objetosComprados = [];
 
 // ELECCIÓN DE JUGADOR
 document.getElementById('botonElfo').addEventListener('click', function () {
-    jugador = new Personaje(50, 20, 0, 200);
+    jugador = new Personaje(80, 50, 0, 300);
     imagen = 'IMG/legolas.webp';
     mostrarStats(imagen);
 });
 
 document.getElementById('botonGuerrero').addEventListener('click', function () {
-    jugador = new Personaje(60, 10, 0, 200);
+    jugador = new Personaje(90, 40, 0, 300);
     imagen = 'IMG/guerrero.png';
     mostrarStats(imagen);
 });
 
 document.getElementById('botonOrco').addEventListener('click', function () {
-    jugador = new Personaje(40, 30, 0, 200);
+    jugador = new Personaje(70, 60, 0, 350);
     imagen = 'IMG/orco.png';
     mostrarStats(imagen);
 });
@@ -146,17 +146,52 @@ function mostrarJugador() {
     });
 }
 
-//BATALLA
+//BATALLA ENEMIGO
 document.getElementById('empezar').addEventListener('click', function () {
     const imagenPersonaje = document.getElementById('chosenImgMarket').src;
-    imagen = imagenPersonaje; 
+    imagen = imagenPersonaje;
     mostrarBatalla();
 });
 
 function mostrarBatalla() {
-    showScene('enemigos');
+    showScene('enemigo');
     document.getElementById('playerImagen').src = imagen;
 
-    const enemigo = new Enemigo('Minotauro', 200, 25, 50);
+    const enemigo = new Enemigo('Minotauro', 50, 25, 200);
 
+    const resultadoHTML = batalla(jugador, enemigo);
+
+    const logicaBatallaDiv = document.getElementById('logicaBatalla');
+    logicaBatallaDiv.innerHTML = resultadoHTML;
+}
+
+//BATALLA JEFE
+document.getElementById('finEnemigo').addEventListener('click', function () {
+    const imagenPersonaje = document.getElementById('chosenImgMarket').src;
+    imagen = imagenPersonaje;
+    mostrarBatallaJefe();
+});
+
+function mostrarBatallaJefe() {
+    showScene('jefe');
+    document.getElementById('playerJugadorImagen').src = imagen;
+
+    const jefe = new Jefe('Dragon', 100, 50, 300, 'Fuego Letal');
+
+    const resultadoHTML = batallaJefe(jugador, jefe);
+
+    const logicaBatallaDiv = document.getElementById('logicaBatallaJefe');
+    logicaBatallaDiv.innerHTML = resultadoHTML;
+}
+
+document.getElementById('fin').addEventListener('click', function () {
+    mostrarFinal();
+});
+
+document.getElementById('volver_inicio').addEventListener('click', () => showScene('choose_player'));
+
+function mostrarFinal() {
+    jugador.imagen = imagen;
+    showScene('ranking');
+    mostrarRanking(jugador);
 }

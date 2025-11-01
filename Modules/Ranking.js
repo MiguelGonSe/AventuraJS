@@ -1,52 +1,113 @@
 import { groupBy } from "../Utils/Utils.js";
 
 export function batalla(jugador, enemigo) {
-    let vidaJugador = jugador.vida;
+    let vidaJugador = jugador.vidaTotal ?? jugador.vida;
     let vidaEnemigo = enemigo.vida;
 
-    const danioJugador = jugador.ataqueTotal;
+    const danioJugador = jugador.ataqueTotal ?? jugador.ataque;
     const danioEnemigo = enemigo.ataque;
 
-    console.log(`⚔️ ¡Comienza la batalla entre ${jugador.nombre} y ${enemigo.nombre}!`);
     let ronda = 1;
+    let resultadoHTML = `<h3>⚔️ ${jugador.nombre} vs ${enemigo.nombre}</h3>`;
 
     while (vidaJugador > 0 && vidaEnemigo > 0) {
-        console.log(`\n🩸 RONDA ${ronda}`);
+        const danioRealJugador = Math.max(1, danioJugador - (enemigo.defensa ?? 0) / 2);
+        const danioRealEnemigo = Math.max(1, danioEnemigo - (jugador.defensaTotal ?? jugador.defensa) / 2);
 
-        vidaEnemigo -= danioJugador;
-        console.log(`${jugador.nombre} ataca y deja a ${enemigo.nombre} con ${Math.max(vidaEnemigo, 0)} de vida`);
+        resultadoHTML += `
+          <div class="ronda">
+            <strong>🩸 Ronda ${ronda}</strong><br>
+            <span class="ataque_jugador">${jugador.nombre} inflige ${danioRealJugador} de daño a ${enemigo.nombre}.</span><br>
+        `;
 
-        if (vidaEnemigo <= 0)
+        vidaEnemigo -= danioRealJugador;
+
+        if (vidaEnemigo <= 0) {
+            vidaEnemigo = 0;
+            resultadoHTML += `<span>${enemigo.nombre} ha caído.</span></div>`;
             break;
+        }
 
-        vidaJugador -= danioEnemigo;
-        console.log(`${enemigo.nombre} contraataca y deja a ${jugador.nombre} con ${Math.max(vidaJugador, 0)} de vida`);
-
+        resultadoHTML += `<span class="ataque_enemigo">${enemigo.nombre} inflige ${danioRealEnemigo} de daño a ${jugador.nombre}.</span></div>`;
+        vidaJugador -= danioRealEnemigo;
         ronda++;
     }
 
     if (vidaEnemigo <= 0) {
-        jugador.puntos += 10;
-        jugador.vida = vidaJugador + 50;
-        console.log(`\n🏆 ${jugador.nombre} ha ganado la batalla. (+10 puntos, +50 vida)`);
-        return `· ${jugador.nombre} [${vidaJugador} vida] vs ${enemigo.nombre} [${Math.max(vidaEnemigo, 0)} vida] - 🏆 Ganador: ${jugador.nombre} | +${jugador.puntos} pts`;
+        jugador.puntos += 50;
+        jugador.vida = vidaJugador + 100;
+        resultadoHTML += `<h4>🏆 ${jugador.nombre} ha ganado (+50 pts, +100 vida)</h4>`;
     } else {
-        console.log(`\n💀 ${enemigo.nombre} ha ganado la batalla.`);
-        return `· ${jugador.nombre} [${Math.max(vidaJugador, 0)} vida] vs ${enemigo.nombre} [${vidaEnemigo} vida] - ❌ Ganador: ${enemigo.nombre} | ${jugador.puntos} pts ¡HAS PERDIDO!`;
+        resultadoHTML += `<h4>💀 ${enemigo.nombre} ha ganado. ¡Has perdido!</h4>`;
     }
+
+    return resultadoHTML;
 }
 
-export function agruparPorNivel(jugadores, umbral) {
-    return groupBy(
-        jugadores,
-        jugador => (jugador.puntos >= umbral ? 'pro' : 'rookie')
-    );
+export function batallaJefe(jugador, jefe) {
+    let vidaJugador = jugador.vidaTotal ?? jugador.vida;
+    let vidaJefe = jefe.vida;
+
+    const danioJugador = jugador.ataqueTotal ?? jugador.ataque;
+    const danioJefe = jefe.ataque;
+
+    let ronda = 1;
+    let resultadoHTML = `<h3>⚔️ ${jugador.nombre} vs ${jefe.nombre}</h3>`;
+
+    while (vidaJugador > 0 && vidaJefe > 0) {
+        const danioRealJugador = Math.max(1, danioJugador - (jefe.defensa ?? 0) / 2);
+        const danioRealJefe = Math.max(1, danioJefe - (jugador.defensaTotal ?? jugador.defensa) / 2);
+
+        resultadoHTML += `
+          <div class="ronda">
+            <strong>🩸 Ronda ${ronda}</strong><br>
+            <span class="ataque_jugador">${jugador.nombre} inflige ${danioRealJugador} de daño a ${jefe.nombre}.</span><br>
+        `;
+
+        vidaJefe -= danioRealJugador;
+
+        if (vidaJefe <= 0) {
+            vidaJefe = 0;
+            resultadoHTML += `<span>${jefe.nombre} ha caído.</span></div>`;
+            break;
+        }
+
+        resultadoHTML += `<span class="ataque_enemigo">${jefe.nombre} inflige ${danioRealJefe} de daño a ${jugador.nombre}.</span></div>`;
+        vidaJugador -= danioRealJefe;
+        ronda++;
+    }
+
+    if (vidaJefe <= 0) {
+        resultadoHTML += `<h4>🏆 ${jugador.nombre} ha ganado el juego, ENHORABUENA</h4>`;
+    } else {
+        resultadoHTML += `<h4>💀 ${jefe.nombre} ha ganado. ¡Has perdido!</h4>`;
+    }
+
+    return resultadoHTML;
 }
 
-export function mostrarRanking(jugadores) {
-    const ordenados = jugadores.slice().sort((a, b) => b.puntos - a.puntos);
-    console.log("🏆 RANKING FINAL 🏆");
-    ordenados.forEach(jugador => {
-        console.log(jugador.mostrarJugador());
-    });
+export function mostrarRanking(jugador) {
+    const rankingDiv = document.getElementById('ranking_final');
+
+    rankingDiv.innerHTML = `
+        <h2>🏆 RANKING FINAL 🏆</h2>
+        <img src="${jugador.imagen}" alt="Jugador" width="150"><br>
+    `;
+
+    let mensaje = '';
+
+    if (jugador.puntos === 0) {
+        mensaje = 'Eres un noob 😅';
+    } else if (jugador.puntos === 50) {
+        mensaje = 'Eres un jugador normalito 🙂';
+    } else if (jugador.puntos === 100) {
+        mensaje = 'Eres un pro 💪🔥';
+    } else {
+        mensaje = `Tienes ${jugador.puntos} puntos.`;
+    }
+
+    const resultado = document.createElement('p');
+    resultado.textContent = `${jugador.nombre}: ${jugador.puntos} puntos - ${mensaje}`;
+
+    rankingDiv.appendChild(resultado);
 }

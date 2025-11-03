@@ -215,7 +215,9 @@ document.getElementById('ir_market').addEventListener('click', function () {
         mostrarFinal();
     });
 
-    document.getElementById('volver_inicio').addEventListener('click', () => showScene('choose_player'));
+    document.getElementById('volver_inicio').addEventListener('click', () =>{
+        location.reload();
+    });
 
     function mostrarFinal() {
         jugador.imagen = imagen;

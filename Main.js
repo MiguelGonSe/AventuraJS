@@ -58,27 +58,55 @@ document.getElementById('ir_market').addEventListener('click', function () {
     purchasedDiv.textContent = "";
 
     objetos.forEach((obj, index) => {
-        const itemDiv = document.createElement('div');
-        itemDiv.innerHTML = obj.mostrarInfo();
 
-        // CLICK EN CADA OBJETO
+        const rarezas = ["Común", "Rara", "Épica", "Legendaria"];
+
+        const indiceDescuento = Math.floor(Math.random() * rarezas.length);
+        const rarezaConDescuento = rarezas[indiceDescuento];
+
+        const indiceObjeto = Math.floor(Math.random() * rarezas.length);
+        obj.rareza = rarezas[indiceObjeto];
+
+        let precioFinal = obj.precio;
+
+        if (obj.rareza === rarezaConDescuento) {
+            precioFinal = obj.precio * 0.75;
+        }
+
+        precioFinal = Math.round(precioFinal);
+        obj.precioConDescuento = precioFinal;
+
+        const itemDiv = document.createElement('div');
+        itemDiv.innerHTML = `
+        ${obj.mostrarInfo()}
+        <p><strong>Rareza:</strong> ${obj.rareza}</p>
+        <p><strong>Precio:</strong> 
+            ${precioFinal < obj.precio
+                ? `<span style="text-decoration: line-through;">${obj.precio}</span> 
+                   <span style="color: green;">→ ${precioFinal} monedas (-${100 - Math.round(precioFinal * 100 / obj.precio)}%)</span>`
+                : `${precioFinal} monedas`
+            }
+        </p>
+    `;
+
+        // CLICK EN CADA OBJETO 
         itemDiv.addEventListener('click', () => {
             if (comprado.has(index)) {
-                // Si ya está comprado, lo quitamos y sumamos monedas
+                // Si ya está comprado, lo quitamos y devolvemos monedas
                 const purchasedItem = comprado.get(index);
                 purchasedDiv.removeChild(purchasedItem);
-                jugador.monedas += obj.precio;
+                jugador.monedas += obj.precioConDescuento;
                 document.getElementById('monedasMarket').textContent = jugador.monedas;
                 comprado.delete(index);
                 itemDiv.style.backgroundColor = '';
 
-                const i = objetosComprados.indexOf(obj); // ELIMINAR
+                const i = objetosComprados.indexOf(obj);
                 if (i > -1) objetosComprados.splice(i, 1);
 
             } else {
                 // Si no está comprado, verificamos monedas y compramos
-                if (jugador.monedas >= obj.precio) {
-                    jugador.monedas -= obj.precio;
+                if (jugador.monedas >= obj.precioConDescuento) {
+                    jugador.monedas -= obj.precioConDescuento;
                     document.getElementById('monedasMarket').textContent = jugador.monedas;
 
                     const purchasedItem = document.createElement('div');
@@ -97,101 +125,101 @@ document.getElementById('ir_market').addEventListener('click', function () {
 
         marketItemsDiv.appendChild(itemDiv);
     });
-});
 
-function mostrarMarket(imagen, nombre, monedas) {
-    showScene('look_market');
-    document.getElementById('chosenImgMarket').src = imagen;
-    document.getElementById('nombreMarket').textContent = nombre;
-    document.getElementById('monedasMarket').textContent = monedas;
-}
+    function mostrarMarket(imagen, nombre, monedas) {
+        showScene('look_market');
+        document.getElementById('chosenImgMarket').src = imagen;
+        document.getElementById('nombreMarket').textContent = nombre;
+        document.getElementById('monedasMarket').textContent = monedas;
+    }
 
-//PERSONAJE CON TODO
-document.getElementById('comprar').addEventListener('click', function () {
-    const imagenPersonaje = document.getElementById('chosenImgMarket').src;
-    imagen = imagenPersonaje;
+    //PERSONAJE CON TODO
+    document.getElementById('comprar').addEventListener('click', function () {
+        const imagenPersonaje = document.getElementById('chosenImgMarket').src;
+        imagen = imagenPersonaje;
 
-    mostrarJugador();
+        mostrarJugador();
 
-});
-
-function mostrarJugador() {
-    showScene('player');
-
-    let ataqueTotal = jugador.ataque;
-    let defensaTotal = jugador.defensa;
-    let vidaTotal = jugador.vida;
-
-    objetosComprados.forEach(obj => {
-        ataqueTotal += obj.bonus.ataque || 0;
-        defensaTotal += obj.bonus.defensa || 0;
-        vidaTotal += obj.bonus.vida || 0;
     });
 
-    document.getElementById('playerImg').src = imagen;
-    document.getElementById('playerNombre').textContent = jugador.nombre;
-    document.getElementById('playerVida').textContent = vidaTotal;
-    document.getElementById('playerAtaque').textContent = ataqueTotal;
-    document.getElementById('playerDefensa').textContent = defensaTotal;
-    document.getElementById('playerPuntos').textContent = jugador.puntos;
-    document.getElementById('playerMonedas').textContent = jugador.monedas;
+    function mostrarJugador() {
+        showScene('player');
 
-    const equipDiv = document.getElementById('playerEquipamiento');
-    equipDiv.textContent = "";
+        let ataqueTotal = jugador.ataque;
+        let defensaTotal = jugador.defensa;
+        let vidaTotal = jugador.vida;
 
-    objetosComprados.forEach(obj => {
-        const div = document.createElement('div');
-        div.innerHTML = obj.mostrarInfo();
-        equipDiv.appendChild(div);
+        objetosComprados.forEach(obj => {
+            ataqueTotal += obj.bonus.ataque || 0;
+            defensaTotal += obj.bonus.defensa || 0;
+            vidaTotal += obj.bonus.vida || 0;
+        });
+
+        document.getElementById('playerImg').src = imagen;
+        document.getElementById('playerNombre').textContent = jugador.nombre;
+        document.getElementById('playerVida').textContent = vidaTotal;
+        document.getElementById('playerAtaque').textContent = ataqueTotal;
+        document.getElementById('playerDefensa').textContent = defensaTotal;
+        document.getElementById('playerPuntos').textContent = jugador.puntos;
+        document.getElementById('playerMonedas').textContent = jugador.monedas;
+
+        const equipDiv = document.getElementById('playerEquipamiento');
+        equipDiv.textContent = "";
+
+        objetosComprados.forEach(obj => {
+            const div = document.createElement('div');
+            div.innerHTML = obj.mostrarInfo();
+            equipDiv.appendChild(div);
+        });
+    }
+
+    //BATALLA ENEMIGO
+    document.getElementById('empezar').addEventListener('click', function () {
+        const imagenPersonaje = document.getElementById('chosenImgMarket').src;
+        imagen = imagenPersonaje;
+        mostrarBatalla();
     });
-}
 
-//BATALLA ENEMIGO
-document.getElementById('empezar').addEventListener('click', function () {
-    const imagenPersonaje = document.getElementById('chosenImgMarket').src;
-    imagen = imagenPersonaje;
-    mostrarBatalla();
+    function mostrarBatalla() {
+        showScene('enemigo');
+        document.getElementById('playerImagen').src = imagen;
+
+        const enemigo = new Enemigo('Minotauro', 50, 25, 200);
+
+        const resultadoHTML = batalla(jugador, enemigo);
+
+        const logicaBatallaDiv = document.getElementById('logicaBatalla');
+        logicaBatallaDiv.innerHTML = resultadoHTML;
+    }
+
+    //BATALLA JEFE
+    document.getElementById('finEnemigo').addEventListener('click', function () {
+        const imagenPersonaje = document.getElementById('chosenImgMarket').src;
+        imagen = imagenPersonaje;
+        mostrarBatallaJefe();
+    });
+
+    function mostrarBatallaJefe() {
+        showScene('jefe');
+        document.getElementById('playerJugadorImagen').src = imagen;
+
+        const jefe = new Jefe('Dragon', 100, 50, 300, 'Fuego Letal');
+
+        const resultadoHTML = batallaJefe(jugador, jefe);
+
+        const logicaBatallaDiv = document.getElementById('logicaBatallaJefe');
+        logicaBatallaDiv.innerHTML = resultadoHTML;
+    }
+
+    document.getElementById('fin').addEventListener('click', function () {
+        mostrarFinal();
+    });
+
+    document.getElementById('volver_inicio').addEventListener('click', () => showScene('choose_player'));
+
+    function mostrarFinal() {
+        jugador.imagen = imagen;
+        showScene('ranking');
+        mostrarRanking(jugador);
+    }
 });
-
-function mostrarBatalla() {
-    showScene('enemigo');
-    document.getElementById('playerImagen').src = imagen;
-
-    const enemigo = new Enemigo('Minotauro', 50, 25, 200);
-
-    const resultadoHTML = batalla(jugador, enemigo);
-
-    const logicaBatallaDiv = document.getElementById('logicaBatalla');
-    logicaBatallaDiv.innerHTML = resultadoHTML;
-}
-
-//BATALLA JEFE
-document.getElementById('finEnemigo').addEventListener('click', function () {
-    const imagenPersonaje = document.getElementById('chosenImgMarket').src;
-    imagen = imagenPersonaje;
-    mostrarBatallaJefe();
-});
-
-function mostrarBatallaJefe() {
-    showScene('jefe');
-    document.getElementById('playerJugadorImagen').src = imagen;
-
-    const jefe = new Jefe('Dragon', 100, 50, 300, 'Fuego Letal');
-
-    const resultadoHTML = batallaJefe(jugador, jefe);
-
-    const logicaBatallaDiv = document.getElementById('logicaBatallaJefe');
-    logicaBatallaDiv.innerHTML = resultadoHTML;
-}
-
-document.getElementById('fin').addEventListener('click', function () {
-    mostrarFinal();
-});
-
-document.getElementById('volver_inicio').addEventListener('click', () => showScene('choose_player'));
-
-function mostrarFinal() {
-    jugador.imagen = imagen;
-    showScene('ranking');
-    mostrarRanking(jugador);
-}

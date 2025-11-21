@@ -95,13 +95,16 @@ export function mostrarRanking(jugador) {
     `;
 
     let mensaje = '';
+    let lanzarConfetti = false;
 
     if (jugador.puntos === 0) {
         mensaje = 'Eres un noob 😅';
     } else if (jugador.puntos === 50) {
         mensaje = 'Eres un jugador normalito 🙂';
+        lanzarConfetti = true;
     } else if (jugador.puntos === 100) {
         mensaje = 'Eres un pro 💪🔥';
+        lanzarConfetti = true;
     } else {
         mensaje = `Tienes ${jugador.puntos} puntos.`;
     }
@@ -110,4 +113,12 @@ export function mostrarRanking(jugador) {
     resultado.textContent = `${jugador.nombre}: ${jugador.puntos} puntos - ${mensaje}`;
 
     rankingDiv.appendChild(resultado);
+
+    if (lanzarConfetti && window.confetti) {
+        confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { y: 0.6 }
+        });
+    }
 }

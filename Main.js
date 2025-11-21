@@ -88,19 +88,21 @@ document.getElementById('ir_market').addEventListener('click', function () {
                 : `${precioFinal} monedas`
             }
         </p>
-        <button class="botonComprar" data-index="${index}">Comprar</button>
-        <button class="botonVender" data-index="${index}" style="display:none;">Vender</button>
+<div class="flip-container">
+    <div class="flip-card">
+        <button class="botonComprar front" data-index="${index}">Comprar</button>
+        <button class="botonVender back" data-index="${index}">Vender</button>
+    </div>
+</div>
         `;
 
         const botonComprar = itemDiv.querySelector('.botonComprar');
         const botonVender = itemDiv.querySelector('.botonVender');
 
         botonComprar.addEventListener('click', () => {
-
-            if (comprado.has(index)) return; // Evita comprarlo dos veces
+            if (comprado.has(index)) return; // ya comprado
 
             if (jugador.monedas >= obj.precioConDescuento) {
-
                 jugador.monedas -= obj.precioConDescuento;
                 document.getElementById('monedasMarket').textContent = jugador.monedas;
 
@@ -113,17 +115,20 @@ document.getElementById('ir_market').addEventListener('click', function () {
 
                 itemDiv.style.backgroundColor = 'red';
 
-                botonComprar.style.display = 'none';
-                botonVender.style.display = 'inline-block';
+                const flipCard = botonComprar.closest('.flip-card');
+                flipCard.classList.add('flipped'); // flip a vender
 
+                const icono = document.createElement('i');
+                icono.className = "fa fa-cart-plus cart-anim";
+                botonComprar.parentElement.appendChild(icono);
+                setTimeout(() => icono.remove(), 800);
             } else {
                 alert("No tienes suficientes monedas para comprar esto.");
             }
         });
 
         botonVender.addEventListener('click', () => {
-
-            if (!comprado.has(index)) return;
+            if (!comprado.has(index)) return; 
 
             const purchasedItem = comprado.get(index);
             purchasedDiv.removeChild(purchasedItem);
@@ -134,11 +139,11 @@ document.getElementById('ir_market').addEventListener('click', function () {
             comprado.delete(index);
             itemDiv.style.backgroundColor = '';
 
+            const flipCard = botonVender.closest('.flip-card');
+            flipCard.classList.remove('flipped'); 
+
             const i = objetosComprados.indexOf(obj);
             if (i > -1) objetosComprados.splice(i, 1);
-
-            botonComprar.style.display = 'inline-block';
-            botonVender.style.display = 'none';
         });
 
         marketItemsDiv.appendChild(itemDiv);

@@ -44,6 +44,7 @@ function mostrarStats(imagen) {
 
 // MARKET
 document.getElementById('ir_market').addEventListener('click', function () {
+
     const inputNombre = document.getElementById('nombre');
     jugador.nombre = inputNombre.value;
     const nombreJugador = inputNombre.value.trim() || jugador.nombre;
@@ -87,141 +88,158 @@ document.getElementById('ir_market').addEventListener('click', function () {
                 : `${precioFinal} monedas`
             }
         </p>
-    `;
+        <button class="botonComprar" data-index="${index}">Comprar</button>
+        <button class="botonVender" data-index="${index}" style="display:none;">Vender</button>
+        `;
 
-        // CLICK EN CADA OBJETO 
-        itemDiv.addEventListener('click', () => {
-            if (comprado.has(index)) {
-                // Si ya está comprado, lo quitamos y devolvemos monedas
-                const purchasedItem = comprado.get(index);
-                purchasedDiv.removeChild(purchasedItem);
-                jugador.monedas += obj.precioConDescuento;
+        const botonComprar = itemDiv.querySelector('.botonComprar');
+        const botonVender = itemDiv.querySelector('.botonVender');
+
+        botonComprar.addEventListener('click', () => {
+
+            if (comprado.has(index)) return; // Evita comprarlo dos veces
+
+            if (jugador.monedas >= obj.precioConDescuento) {
+
+                jugador.monedas -= obj.precioConDescuento;
                 document.getElementById('monedasMarket').textContent = jugador.monedas;
-                comprado.delete(index);
-                itemDiv.style.backgroundColor = '';
 
-                const i = objetosComprados.indexOf(obj);
-                if (i > -1) objetosComprados.splice(i, 1);
+                const purchasedItem = document.createElement('div');
+                purchasedItem.innerHTML = obj.mostrarInfo();
+                purchasedDiv.appendChild(purchasedItem);
+
+                comprado.set(index, purchasedItem);
+                objetosComprados.push(obj);
+
+                itemDiv.style.backgroundColor = 'red';
+
+                botonComprar.style.display = 'none';
+                botonVender.style.display = 'inline-block';
 
             } else {
-                // Si no está comprado, verificamos monedas y compramos
-                if (jugador.monedas >= obj.precioConDescuento) {
-                    jugador.monedas -= obj.precioConDescuento;
-                    document.getElementById('monedasMarket').textContent = jugador.monedas;
-
-                    const purchasedItem = document.createElement('div');
-                    purchasedItem.innerHTML = obj.mostrarInfo();
-                    purchasedDiv.appendChild(purchasedItem);
-
-                    comprado.set(index, purchasedItem);
-                    objetosComprados.push(obj);
-
-                    itemDiv.style.backgroundColor = 'red';
-                } else {
-                    alert("No tienes suficientes monedas para comprar esto.");
-                }
+                alert("No tienes suficientes monedas para comprar esto.");
             }
+        });
+
+        botonVender.addEventListener('click', () => {
+
+            if (!comprado.has(index)) return;
+
+            const purchasedItem = comprado.get(index);
+            purchasedDiv.removeChild(purchasedItem);
+
+            jugador.monedas += obj.precioConDescuento;
+            document.getElementById('monedasMarket').textContent = jugador.monedas;
+
+            comprado.delete(index);
+            itemDiv.style.backgroundColor = '';
+
+            const i = objetosComprados.indexOf(obj);
+            if (i > -1) objetosComprados.splice(i, 1);
+
+            botonComprar.style.display = 'inline-block';
+            botonVender.style.display = 'none';
         });
 
         marketItemsDiv.appendChild(itemDiv);
     });
-
-    function mostrarMarket(imagen, nombre, monedas) {
-        showScene('look_market');
-        document.getElementById('chosenImgMarket').src = imagen;
-        document.getElementById('nombreMarket').textContent = nombre;
-        document.getElementById('monedasMarket').textContent = monedas;
-    }
-
-    //PERSONAJE CON TODO
-    document.getElementById('comprar').addEventListener('click', function () {
-        const imagenPersonaje = document.getElementById('chosenImgMarket').src;
-        imagen = imagenPersonaje;
-
-        mostrarJugador();
-
-    });
-
-    function mostrarJugador() {
-        showScene('player');
-
-        let ataqueTotal = jugador.ataque;
-        let defensaTotal = jugador.defensa;
-        let vidaTotal = jugador.vida;
-
-        objetosComprados.forEach(obj => {
-            ataqueTotal += obj.bonus.ataque || 0;
-            defensaTotal += obj.bonus.defensa || 0;
-            vidaTotal += obj.bonus.vida || 0;
-        });
-
-        document.getElementById('playerImg').src = imagen;
-        document.getElementById('playerNombre').textContent = jugador.nombre;
-        document.getElementById('playerVida').textContent = vidaTotal;
-        document.getElementById('playerAtaque').textContent = ataqueTotal;
-        document.getElementById('playerDefensa').textContent = defensaTotal;
-        document.getElementById('playerPuntos').textContent = jugador.puntos;
-        document.getElementById('playerMonedas').textContent = jugador.monedas;
-
-        const equipDiv = document.getElementById('playerEquipamiento');
-        equipDiv.textContent = "";
-
-        objetosComprados.forEach(obj => {
-            const div = document.createElement('div');
-            div.innerHTML = obj.mostrarInfo();
-            equipDiv.appendChild(div);
-        });
-    }
-
-    //BATALLA ENEMIGO
-    document.getElementById('empezar').addEventListener('click', function () {
-        const imagenPersonaje = document.getElementById('chosenImgMarket').src;
-        imagen = imagenPersonaje;
-        mostrarBatalla();
-    });
-
-    function mostrarBatalla() {
-        showScene('enemigo');
-        document.getElementById('playerImagen').src = imagen;
-
-        const enemigo = new Enemigo('Minotauro', 50, 25, 200);
-
-        const resultadoHTML = batalla(jugador, enemigo);
-
-        const logicaBatallaDiv = document.getElementById('logicaBatalla');
-        logicaBatallaDiv.innerHTML = resultadoHTML;
-    }
-
-    //BATALLA JEFE
-    document.getElementById('finEnemigo').addEventListener('click', function () {
-        const imagenPersonaje = document.getElementById('chosenImgMarket').src;
-        imagen = imagenPersonaje;
-        mostrarBatallaJefe();
-    });
-
-    function mostrarBatallaJefe() {
-        showScene('jefe');
-        document.getElementById('playerJugadorImagen').src = imagen;
-
-        const jefe = new Jefe('Dragon', 100, 50, 300, 'Fuego Letal');
-
-        const resultadoHTML = batallaJefe(jugador, jefe);
-
-        const logicaBatallaDiv = document.getElementById('logicaBatallaJefe');
-        logicaBatallaDiv.innerHTML = resultadoHTML;
-    }
-
-    document.getElementById('fin').addEventListener('click', function () {
-        mostrarFinal();
-    });
-
-    document.getElementById('volver_inicio').addEventListener('click', () =>{
-        location.reload();
-    });
-
-    function mostrarFinal() {
-        jugador.imagen = imagen;
-        showScene('ranking');
-        mostrarRanking(jugador);
-    }
 });
+
+function mostrarMarket(imagen, nombre, monedas) {
+    showScene('look_market');
+    document.getElementById('chosenImgMarket').src = imagen;
+    document.getElementById('nombreMarket').textContent = nombre;
+    document.getElementById('monedasMarket').textContent = monedas;
+}
+
+//PERSONAJE CON TODO
+document.getElementById('comprar').addEventListener('click', function () {
+    const imagenPersonaje = document.getElementById('chosenImgMarket').src;
+    imagen = imagenPersonaje;
+
+    mostrarJugador();
+
+});
+
+function mostrarJugador() {
+    showScene('player');
+
+    let ataqueTotal = jugador.ataque;
+    let defensaTotal = jugador.defensa;
+    let vidaTotal = jugador.vida;
+
+    objetosComprados.forEach(obj => {
+        ataqueTotal += obj.bonus.ataque || 0;
+        defensaTotal += obj.bonus.defensa || 0;
+        vidaTotal += obj.bonus.vida || 0;
+    });
+
+    document.getElementById('playerImg').src = imagen;
+    document.getElementById('playerNombre').textContent = jugador.nombre;
+    document.getElementById('playerVida').textContent = vidaTotal;
+    document.getElementById('playerAtaque').textContent = ataqueTotal;
+    document.getElementById('playerDefensa').textContent = defensaTotal;
+    document.getElementById('playerPuntos').textContent = jugador.puntos;
+    document.getElementById('playerMonedas').textContent = jugador.monedas;
+
+    const equipDiv = document.getElementById('playerEquipamiento');
+    equipDiv.textContent = "";
+
+    objetosComprados.forEach(obj => {
+        const div = document.createElement('div');
+        div.innerHTML = obj.mostrarInfo();
+        equipDiv.appendChild(div);
+    });
+}
+
+//BATALLA ENEMIGO
+document.getElementById('empezar').addEventListener('click', function () {
+    const imagenPersonaje = document.getElementById('chosenImgMarket').src;
+    imagen = imagenPersonaje;
+    mostrarBatalla();
+});
+
+function mostrarBatalla() {
+    showScene('enemigo');
+    document.getElementById('playerImagen').src = imagen;
+
+    const enemigo = new Enemigo('Minotauro', 50, 25, 200);
+
+    const resultadoHTML = batalla(jugador, enemigo);
+
+    const logicaBatallaDiv = document.getElementById('logicaBatalla');
+    logicaBatallaDiv.innerHTML = resultadoHTML;
+}
+
+//BATALLA JEFE
+document.getElementById('finEnemigo').addEventListener('click', function () {
+    const imagenPersonaje = document.getElementById('chosenImgMarket').src;
+    imagen = imagenPersonaje;
+    mostrarBatallaJefe();
+});
+
+function mostrarBatallaJefe() {
+    showScene('jefe');
+    document.getElementById('playerJugadorImagen').src = imagen;
+
+    const jefe = new Jefe('Dragon', 100, 50, 300, 'Fuego Letal');
+
+    const resultadoHTML = batallaJefe(jugador, jefe);
+
+    const logicaBatallaDiv = document.getElementById('logicaBatallaJefe');
+    logicaBatallaDiv.innerHTML = resultadoHTML;
+}
+
+document.getElementById('fin').addEventListener('click', function () {
+    mostrarFinal();
+});
+
+document.getElementById('volver_inicio').addEventListener('click', () => {
+    location.reload();
+});
+
+function mostrarFinal() {
+    jugador.imagen = imagen;
+    showScene('ranking');
+    mostrarRanking(jugador);
+}

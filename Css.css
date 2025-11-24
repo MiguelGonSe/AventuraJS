@@ -374,6 +374,40 @@
     box-shadow: 0 0 10px #ff0, 0 0 20px #f00, 0 0 30px #0f0;
 }
 
+#playerImagen {
+    opacity: 0;
+    animation: entrarJugador 0.8s forwards;
+}
+
+#enemigoImagen {
+    opacity: 0;
+    animation: entrarEnemigo 0.8s forwards;
+}
+
+@keyframes entrarJugador {
+    from {
+        transform: translateX(-300px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes entrarEnemigo {
+    from {
+        transform: translateX(300px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
 /* SEXTA PANTALLA */
 
 #jefe {
@@ -424,6 +458,18 @@
     color: #222;
     transform: scale(1.1);
     box-shadow: 0 0 10px #ff0, 0 0 20px #f00, 0 0 30px #0f0;
+}
+
+@keyframes entrarJefe {
+    from {
+        transform: translateX(300px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
 /* ULTIMA PANTALLA  */

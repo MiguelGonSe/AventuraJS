@@ -201,12 +201,19 @@ document.getElementById('empezar').addEventListener('click', function () {
 
 function mostrarBatalla() {
     showScene('enemigo');
+
     document.getElementById('playerImagen').src = imagen;
+    document.getElementById('enemigoImagen').src = "IMG/minotauro.webp";
+
+    const p = document.getElementById('playerImagen');
+    const e = document.getElementById('enemigoImagen');
+
+    p.style.animation = 'entrarJugador 0.8s forwards'; // Mantener en posicion final
+    e.style.animation = 'entrarEnemigo 0.8s forwards';
 
     const enemigo = new Enemigo('Minotauro', 50, 25, 200);
 
     const resultadoHTML = batalla(jugador, enemigo);
-
     const logicaBatallaDiv = document.getElementById('logicaBatalla');
     logicaBatallaDiv.innerHTML = resultadoHTML;
 }
@@ -222,10 +229,15 @@ function mostrarBatallaJefe() {
     showScene('jefe');
     document.getElementById('playerJugadorImagen').src = imagen;
 
+    const p = document.getElementById('playerJugadorImagen');
+    const j = document.getElementById('jefeImagen');
+
+    p.style.animation = 'entrarJugador 0.8s forwards';
+    j.style.animation = 'entrarJefe 0.8s forwards';
+
     const jefe = new Jefe('Dragon', 100, 50, 300, 'Fuego Letal');
 
     const resultadoHTML = batallaJefe(jugador, jefe);
-
     const logicaBatallaDiv = document.getElementById('logicaBatallaJefe');
     logicaBatallaDiv.innerHTML = resultadoHTML;
 }

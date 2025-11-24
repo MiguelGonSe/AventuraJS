@@ -34,9 +34,10 @@ export function batalla(jugador, enemigo) {
     }
 
     if (vidaEnemigo <= 0) {
-        jugador.puntos += 50;
+        const puntosGanados = 100 + enemigo.ataque;
+        jugador.puntos += puntosGanados;
         jugador.vida = vidaJugador + 100;
-        resultadoHTML += `<h4>🏆 ${jugador.nombre} ha ganado (+50 pts, +100 vida)</h4>`;
+        resultadoHTML += `<h4>🏆 ${jugador.nombre} ha ganado (${puntosGanados} pts y +100 vida)</h4>`;
     } else {
         resultadoHTML += `<h4>💀 ${enemigo.nombre} ha ganado. ¡Has perdido!</h4>`;
     }
@@ -78,7 +79,9 @@ export function batallaJefe(jugador, jefe) {
     }
 
     if (vidaJefe <= 0) {
-        resultadoHTML += `<h4>🏆 ${jugador.nombre} ha ganado el juego, ENHORABUENA</h4>`;
+        const puntosGanados = (100 + jefe.ataque) * (jefe.multiplicador ?? 1);
+        jugador.puntos += puntosGanados;
+        resultadoHTML += `<h4>🏆 ${jugador.nombre} ha ganado el juego (${puntosGanados} pts), ENHORABUENA</h4>`;
     } else {
         resultadoHTML += `<h4>💀 ${jefe.nombre} ha ganado. ¡Has perdido!</h4>`;
     }
@@ -98,12 +101,12 @@ export function mostrarRanking(jugador) {
     let lanzarConfetti = false;
 
     if (jugador.puntos === 0) {
-        mensaje = 'Eres un noob 😅';
-    } else if (jugador.puntos === 50) {
-        mensaje = 'Eres un jugador normalito 🙂';
+        mensaje = 'Eres un noob';
+    } else if (jugador.puntos > 0 && jugador.puntos < 200) {
+        mensaje = 'Eres un jugador normalito';
         lanzarConfetti = true;
-    } else if (jugador.puntos === 100) {
-        mensaje = 'Eres un pro 💪🔥';
+    } else if (jugador.puntos >= 200) {
+        mensaje = 'Eres un pro';
         lanzarConfetti = true;
     } else {
         mensaje = `Tienes ${jugador.puntos} puntos.`;

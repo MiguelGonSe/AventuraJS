@@ -88,11 +88,9 @@ document.getElementById('ir_market').addEventListener('click', function () {
                 : `${precioFinal} monedas`
             }
         </p>
-<div class="flip-container">
-    <div class="flip-card">
-        <button class="botonComprar front" data-index="${index}">Comprar</button>
-        <button class="botonVender back" data-index="${index}">Vender</button>
-    </div>
+<div class="card-boton">
+    <button class="front botonComprar" data-index="${index}">Comprar</button>
+    <button class="back botonVender" data-index="${index}">Vender</button>
 </div>
         `;
 
@@ -115,12 +113,11 @@ document.getElementById('ir_market').addEventListener('click', function () {
 
                 itemDiv.style.backgroundColor = 'red';
 
-                const flipCard = botonComprar.closest('.flip-card');
-                flipCard.classList.add('flipped'); // flip a vender
+                botonComprar.parentElement.classList.add("flipped");
 
                 const icono = document.createElement('i');
                 icono.className = "fa fa-cart-plus cart-anim";
-                botonComprar.parentElement.appendChild(icono);
+                itemDiv.appendChild(icono);
                 setTimeout(() => icono.remove(), 800);
             } else {
                 alert("No tienes suficientes monedas para comprar esto.");
@@ -128,7 +125,7 @@ document.getElementById('ir_market').addEventListener('click', function () {
         });
 
         botonVender.addEventListener('click', () => {
-            if (!comprado.has(index)) return; 
+            if (!comprado.has(index)) return;
 
             const purchasedItem = comprado.get(index);
             purchasedDiv.removeChild(purchasedItem);
@@ -139,11 +136,10 @@ document.getElementById('ir_market').addEventListener('click', function () {
             comprado.delete(index);
             itemDiv.style.backgroundColor = '';
 
-            const flipCard = botonVender.closest('.flip-card');
-            flipCard.classList.remove('flipped'); 
-
             const i = objetosComprados.indexOf(obj);
             if (i > -1) objetosComprados.splice(i, 1);
+
+            botonVender.parentElement.classList.remove("flipped");
         });
 
         marketItemsDiv.appendChild(itemDiv);
@@ -163,7 +159,6 @@ document.getElementById('comprar').addEventListener('click', function () {
     imagen = imagenPersonaje;
 
     mostrarJugador();
-
 });
 
 function mostrarJugador() {

@@ -2,8 +2,8 @@ import { Objeto } from './Objeto.js';
 
 export const objetos = [
     new Objeto("Espada Carmesí", 1250, "Épica", "Arma", { ataque: 28, vida: 15 }),
-    new Objeto("Hacha del Trueno", 1400, "Legendaria", "Arma", { ataque: 35, defensa: 10 }),
-    new Objeto("Látigo Sombrío", 800, "Rara", "Arma", { ataque: 22, vida: 20 }),
+    new Objeto("Hacha del Trueno", 1400, "Legendaria", "Arma", { ataque: 45, defensa: 10 }),
+    new Objeto("Látigo Sombrío", 800, "Rara", "Arma", { ataque: 30, vida: 20 }),
     new Objeto("Katana Celestial", 1600, "Legendaria", "Arma", { ataque: 40, vida: 25 }),
     new Objeto("Martillo del Gigante", 1150, "Épica", "Arma", { ataque: 33, defensa: 15 }),
     new Objeto("Muro de Hierro", 900, "Rara", "Armadura", { defensa: 45, vida: 20 }),

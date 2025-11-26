@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
 </head>
 
 <body>
@@ -27,7 +28,7 @@
 
         <div id="look_stats" class="scene">
             <br>
-            <img id="chosenImgStats" src="" alt="Personaje elegido" width="100">
+            <img id="chosenImgStats" src="" alt="Personaje elegido" width="12rem">
 
             <label for="nombre">Elige tu nombre:</label>
             <input type="text" id="nombre" name="nombre" maxlength="20" required>
@@ -45,18 +46,19 @@
 
         <div id="look_market" class="scene">
 
-            <img id="chosenImgMarket" src="" alt="Personaje elegido" width="12rem">
-            <p>Nombre: <span id="nombreMarket"></span></p>
-            <p>Elige lo que quieres comprar. Tienes : <span id="monedasMarket"></span> monedas</p>
-            <p>Elige sabiamente, tu futuro está en ello.</p>
+            <img id="chosenImgMarket" src="" alt="Personaje elegido">
+            <h2>Nombre: <span id="nombreMarket"></span></h2>
+            <h2>Elige lo que quieres comprar. Tienes : <span id="monedasMarket"></span> monedas</h2>
+            <h2>Elige sabiamente, tu futuro está en ello.</h2>
 
-            <div id="marketItems"></div>
+            <div id="marketItems">
 
+            </div>
+            
             <button id="comprar">Comprar</button>
 
             <div id="purchasedItems"></div>
         </div>
-
 
         <div id="player" class="scene">
 

@@ -23,10 +23,6 @@
 #choose_player {
     font-family: 'Press Start 2P', monospace;
     color: rgb(255, 162, 0);
-    text-shadow:
-        2px 2px #f00,
-        -2px -2px #00f,
-        4px 4px #0f0;
     text-align: center;
     font-size: 28px;
     margin-bottom: 30px;
@@ -63,17 +59,24 @@
     background-color: #ff0;
     color: #222;
     transform: scale(1.1);
-    box-shadow: 0 0 10px #ff0, 0 0 20px #f00, 0 0 30px #0f0;
 }
 
 /* SEGUNDA PANTALLA  */
 
 #look_stats {
     font-family: 'Press Start 2P', monospace;
-    color: rgb(255, 162, 0);
     text-align: center;
     font-size: 20px;
     margin-bottom: 30px;
+}
+
+#look_stats p {
+    color: black;
+}
+
+#look_stats p span {
+    color: rgb(255, 162, 0);
+    font-weight: bold;
 }
 
 #look_stats img#chosenImgStats {
@@ -120,17 +123,31 @@
 }
 
 /* TERCERA PANTALLA */
+#chosenImgMarket {
+    width: 16rem;
+    height: 16rem;
+    object-fit: contain;
+}
 
 #look_market {
     font-family: 'Press Start 2P', monospace;
-    color: rgb(255, 162, 0);
     text-align: center;
     font-size: 18px;
     margin-bottom: 30px;
 }
 
+#look_market h2 {
+    font-size: 12px;
+    margin: 10px 0;
+}
+
+#look_market h2 span {
+    color: rgb(255, 162, 0);
+    font-weight: bold;
+}
+
 #look_market p {
-    font-size: 16px;
+    font-size: 12px;
     margin: 10px 0;
 }
 
@@ -162,6 +179,16 @@
     color: #fff;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     transition: all 0.2s ease;
+}
+
+#marketItems div span,
+#purchasedItems div span {
+    color: rgb(255, 162, 0);
+}
+
+#marketItems > div {
+    opacity: 0;
+    transform: translateY(50px);
 }
 
 #comprar {
@@ -219,7 +246,7 @@
     backface-visibility: hidden;
     transition: transform 0.6s ease, background-color 0.3s ease;
     transform-style: preserve-3d;
-
+    z-index: 2;
     position: absolute;
     top: 0;
     left: 0;
@@ -288,7 +315,6 @@
     padding: 10px;
     text-align: center;
     font-family: 'Verdana', sans-serif;
-    /* Más legible para items */
     font-size: 14px;
     color: #fff;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
@@ -374,19 +400,9 @@
     box-shadow: 0 0 10px #ff0, 0 0 20px #f00, 0 0 30px #0f0;
 }
 
-#playerImagen {
-    opacity: 0;
-    animation: entrarJugador 0.8s forwards;
-}
-
-#enemigoImagen {
-    opacity: 0;
-    animation: entrarEnemigo 0.8s forwards;
-}
-
 @keyframes entrarJugador {
     from {
-        transform: translateX(-300px);
+        transform: translateX(300px);
         opacity: 0;
     }
 
@@ -398,7 +414,7 @@
 
 @keyframes entrarEnemigo {
     from {
-        transform: translateX(300px);
+        transform: translateX(-300px);
         opacity: 0;
     }
 
@@ -462,7 +478,7 @@
 
 @keyframes entrarJefe {
     from {
-        transform: translateX(300px);
+        transform: translateX(-300px);
         opacity: 0;
     }
 
@@ -533,11 +549,20 @@
 
 /* RESPONSIVE */
 
-@media (width < 640px) {
+@media (width < 800px) {
     #marketItems {
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
         display: grid;
         grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+    }
+}
+
+@media (width < 520px) {
+    #marketItems {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(2, 1fr);
     }
 }

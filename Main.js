@@ -5,6 +5,8 @@ import { objetos } from './Modules/Mercado.js';
 import { batallaJefe, batalla, mostrarRanking } from './Modules/Ranking.js';
 import { showScene } from './Utils/Utils.js';
 
+gsap.registerPlugin(ScrollTrigger);
+
 let jugador;
 let imagen = "";
 const comprado = new Map();
@@ -65,13 +67,11 @@ document.getElementById('ir_market').addEventListener('click', function () {
         const indiceDescuento = Math.floor(Math.random() * rarezas.length);
         const rarezaConDescuento = rarezas[indiceDescuento];
 
-        const indiceObjeto = Math.floor(Math.random() * rarezas.length);
-        obj.rareza = rarezas[indiceObjeto];
+        obj.rarezaMarket = obj.rareza;
+        let precioFinal = obj.precioBase;
 
-        let precioFinal = obj.precio;
-
-        if (obj.rareza === rarezaConDescuento) {
-            precioFinal = obj.precio * 0.75;
+        if (obj.rarezaMarket === rarezaConDescuento) {
+            precioFinal = obj.precioBase * 0.75;
         }
 
         precioFinal = Math.round(precioFinal);
@@ -80,14 +80,14 @@ document.getElementById('ir_market').addEventListener('click', function () {
         const itemDiv = document.createElement('div');
         itemDiv.innerHTML = `
         ${obj.mostrarInfo()}
-        <p><strong>Rareza:</strong> ${obj.rareza}</p>
-        <p><strong>Precio:</strong> 
-            ${precioFinal < obj.precio
-                ? `<span style="text-decoration: line-through;">${obj.precio}</span> 
-                   <span style="color: green;">→ ${precioFinal} monedas (-${100 - Math.round(precioFinal * 100 / obj.precio)}%)</span>`
-                : `${precioFinal} monedas`
+        <h2><strong>Rareza:</strong> <span>${obj.rarezaMarket}</span></h2>
+        <h2><strong>Precio:</strong> 
+        ${precioFinal < obj.precioBase
+                ? `<span style="text-decoration: line-through;">${obj.precioBase}</span> 
+       <span style="color: green;">→ ${precioFinal} monedas (-${100 - Math.round(precioFinal * 100 / obj.precioBase)}%)</span>`
+                : `<span>${precioFinal}</span> monedas`
             }
-        </p>
+        </h2>
 <div class="card-boton">
     <button class="front botonComprar" data-index="${index}">Comprar</button>
     <button class="back botonVender" data-index="${index}">Vender</button>
@@ -111,7 +111,7 @@ document.getElementById('ir_market').addEventListener('click', function () {
                 comprado.set(index, purchasedItem);
                 objetosComprados.push(obj);
 
-                itemDiv.style.backgroundColor = 'red';
+                itemDiv.style.backgroundColor = '#9a0000';
 
                 botonComprar.parentElement.classList.add("flipped");
 
@@ -143,6 +143,21 @@ document.getElementById('ir_market').addEventListener('click', function () {
         });
 
         marketItemsDiv.appendChild(itemDiv);
+    });
+
+    gsap.to("#marketItems > div", { //Selecciona los div dentro de marketItems
+        scrollTrigger: {
+            trigger: "#look_market",
+            start: "top 20%",
+            end: "bottom bottom",
+            scrub: 1,
+            markers: false
+        },
+        opacity: 1,
+        y: 0,
+        duration: 1.5,
+        ease: "bounce.out",
+        stagger: 0.18
     });
 });
 

@@ -16,9 +16,20 @@ export class Objeto {
         this.imagen = this.getImagen();
     }
 
+    formatearPrecio(cantidad) {
+        let valor = cantidad / 100;
+        return valor.toFixed(2).replace('.', ',') + '€';
+    }
+
+    getPrecioFormateado() {
+        return this.formatearPrecio(this.precio);
+    }
+
     mostrarInfo() {
         const bonusStr = Object.entries(this.bonus).map(([k, v]) => `${k}: ${v}`).join(', ');
-        return `<img src="${this.imagen}" alt="${this.nombre}" width="70" height="70"/> <p><strong>${this.nombre}</strong><br><br> <strong>Bonus: <span>${bonusStr}</span></strong> </p>`;
+        return `<img src="${this.imagen}" alt="${this.nombre}" width="70" height="70"/> 
+                <p><strong>${this.nombre}</strong><br><br> 
+                <strong>Bonus: <span>${bonusStr}</span></strong> </p>`;
     }
 
 

@@ -38,10 +38,15 @@ export function groupBy(array, keyFunc) {
   * Selecciona el elemento con el id especificado y le añade la clase active
   * @param {number} id - identificador del elemento.
   */
- 
+
 export function showScene(id) {
     document.querySelectorAll('.scene').forEach(
         element => element.classList.remove('active')
     );
     document.getElementById(id).classList.add('active');
+}
+
+// Divide entre 100, fija 2 decimales, cambia punto por coma y añade €
+export function formatearDinero(cantidad) {
+    return (cantidad / 100).toFixed(2).replace('.', ',') + ' €';
 }

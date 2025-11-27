@@ -3,7 +3,7 @@ import { Enemigo } from './Modules/Enemigo.js';
 import { Jefe } from './Modules/Jefe.js';
 import { objetos } from './Modules/Mercado.js';
 import { batallaJefe, batalla, mostrarRanking } from './Modules/Ranking.js';
-import { showScene } from './Utils/Utils.js';
+import { showScene, formatearDinero } from './Utils/Utils.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -85,15 +85,17 @@ document.getElementById('ir_market').addEventListener('click', function () {
         <h2><strong>Rareza:</strong> <span>${obj.rarezaMarket}</span></h2>
         <h2><strong>Precio:</strong> 
         ${precioFinal < obj.precioBase
-                ? `<span style="text-decoration: line-through;">${obj.precioBase}</span> 
-       <span style="color: green;">→ ${precioFinal} monedas (-${100 - Math.round(precioFinal * 100 / obj.precioBase)}%)</span>`
-                : `<span>${precioFinal}</span> monedas`
+                ? `<span style="text-decoration: line-through;">${obj.formatearPrecio(obj.precioBase)}</span> 
+                   
+                   <span style="color: green;">→ ${obj.formatearPrecio(precioFinal)} (-${100 - Math.round(precioFinal * 100 / obj.precioBase)}%)</span>`
+
+                : `<span>${obj.formatearPrecio(precioFinal)}</span>`
             }
         </h2>
-<div class="card-boton">
-    <button class="front botonComprar" data-index="${index}">Comprar</button>
-    <button class="back botonVender" data-index="${index}">Retirar</button>
-</div>
+        <div class="card-boton">
+            <button class="front botonComprar" data-index="${index}">Comprar</button>
+            <button class="back botonVender" data-index="${index}">Retirar</button>
+        </div>
         `;
 
         const botonComprar = itemDiv.querySelector('.botonComprar');
@@ -167,7 +169,7 @@ function mostrarMarket(imagen, nombre, monedas) {
     showScene('look_market');
     document.getElementById('chosenImgMarket').src = imagen;
     document.getElementById('nombreMarket').textContent = nombre;
-    document.getElementById('monedasMarket').textContent = monedas;
+    document.getElementById('monedasMarket').textContent = formatearDinero(monedas);
 }
 
 //PERSONAJE CON TODO
@@ -211,16 +213,16 @@ function mostrarJugador() {
 
 //VER A LOS ENEMIGOS 
 document.getElementById('verALosEnemigos').addEventListener('click', function () {
-verEnemigos();
+    verEnemigos();
 })
 
-function verEnemigos(){
+function verEnemigos() {
     showScene('verEnemigo');
 
     document.getElementById('prevNombreEnemigo').textContent = minotauro.nombre;
     document.getElementById('prevVidaEnemigo').textContent = minotauro.vida;
     document.getElementById('prevAtaqueEnemigo').textContent = minotauro.ataque;
-    
+
     // Rellenamos los datos del Jefe en el HTML
     document.getElementById('prevNombreJefe').textContent = dragon.nombre;
     document.getElementById('prevVidaJefe').textContent = dragon.vida;

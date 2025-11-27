@@ -11,6 +11,8 @@ let jugador;
 let imagen = "";
 const comprado = new Map();
 const objetosComprados = [];
+const minotauro = new Enemigo('Minotauro', 50, 25, 200);
+const dragon = new Jefe('Dragon', 100, 50, 300, 'Fuego Letal');
 
 // ELECCIÓN DE JUGADOR
 document.getElementById('botonElfo').addEventListener('click', function () {
@@ -90,7 +92,7 @@ document.getElementById('ir_market').addEventListener('click', function () {
         </h2>
 <div class="card-boton">
     <button class="front botonComprar" data-index="${index}">Comprar</button>
-    <button class="back botonVender" data-index="${index}">Vender</button>
+    <button class="back botonVender" data-index="${index}">Retirar</button>
 </div>
         `;
 
@@ -207,6 +209,24 @@ function mostrarJugador() {
     });
 }
 
+//VER A LOS ENEMIGOS 
+document.getElementById('verALosEnemigos').addEventListener('click', function () {
+verEnemigos();
+})
+
+function verEnemigos(){
+    showScene('verEnemigo');
+
+    document.getElementById('prevNombreEnemigo').textContent = minotauro.nombre;
+    document.getElementById('prevVidaEnemigo').textContent = minotauro.vida;
+    document.getElementById('prevAtaqueEnemigo').textContent = minotauro.ataque;
+    
+    // Rellenamos los datos del Jefe en el HTML
+    document.getElementById('prevNombreJefe').textContent = dragon.nombre;
+    document.getElementById('prevVidaJefe').textContent = dragon.vida;
+    document.getElementById('prevAtaqueJefe').textContent = dragon.ataque;
+}
+
 //BATALLA ENEMIGO
 document.getElementById('empezar').addEventListener('click', function () {
     const imagenPersonaje = document.getElementById('chosenImgMarket').src;
@@ -226,9 +246,7 @@ function mostrarBatalla() {
     p.style.animation = 'entrarJugador 0.8s forwards'; // Mantener en posicion final
     e.style.animation = 'entrarEnemigo 0.8s forwards';
 
-    const enemigo = new Enemigo('Minotauro', 50, 25, 200);
-
-    const resultadoHTML = batalla(jugador, enemigo);
+    const resultadoHTML = batalla(jugador, minotauro);
     const logicaBatallaDiv = document.getElementById('logicaBatalla');
     logicaBatallaDiv.innerHTML = resultadoHTML;
 }
@@ -250,9 +268,7 @@ function mostrarBatallaJefe() {
     p.style.animation = 'entrarJugador 0.8s forwards';
     j.style.animation = 'entrarJefe 0.8s forwards';
 
-    const jefe = new Jefe('Dragon', 100, 50, 300, 'Fuego Letal');
-
-    const resultadoHTML = batallaJefe(jugador, jefe);
+    const resultadoHTML = batallaJefe(jugador, dragon);
     const logicaBatallaDiv = document.getElementById('logicaBatallaJefe');
     logicaBatallaDiv.innerHTML = resultadoHTML;
 }

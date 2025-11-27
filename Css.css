@@ -1,3 +1,22 @@
+:root {
+
+    --color-primary: rgb(255, 162, 0);
+    --color-secondary: #ff0;
+    --color-bg-dark: #222;
+    --color-text: #fff;
+    --color-shadow-red: #f00;
+    --color-shadow-blue: #00f;
+    --color-shadow-green: #0f0;
+    --color-success: #2ecc71;
+    --color-danger: #e74c3c;
+
+    --font-pixel: 'Press Start 2P', monospace;
+
+    --neon-shadow: 0 0 10px var(--color-primary),
+        0 0 20px var(--color-shadow-red),
+        0 0 30px var(--color-shadow-green);
+}
+
 .scene {
     display: none;
 }
@@ -7,37 +26,34 @@
 }
 
 #titulo {
-    font-family: 'Press Start 2P', monospace;
+    font-family: var(--font-pixel);
     font-size: 36px;
     text-align: center;
-    color: #ff0;
-    text-shadow:
-        2px 2px #f00,
-        -2px -2px #00f,
-        4px 4px #0f0;
+    color: var(--color-secondary);
+    text-shadow: var(--neon-shadow);
     margin: 20px 0;
 }
 
 /* PRIMERA PANTALLA  */
 
 #choose_player {
-    font-family: 'Press Start 2P', monospace;
-    color: rgb(255, 162, 0);
+    font-family: var(--font-pixel);
+    color: var(--color-primary);
     text-align: center;
-    font-size: 28px;
+    font-size: 26px;
     margin-bottom: 30px;
 }
 
 .eleccion {
-    background-color: #222;
-    border: 3px solid #ff0;
+    background-color: var(--color-bg-dark);
+    border: 3px solid var(--color-secondary);
     border-radius: 10px;
     padding: 10px;
     width: 16rem;
     height: 16rem;
     text-align: center;
-    font-family: 'Press Start 2P', monospace;
-    color: #fff;
+    font-family: var(--font-pixel);
+    color: var(--color-text);
     transition: all 0.2s ease;
 }
 
@@ -45,7 +61,7 @@
     width: 12rem;
     height: 12rem;
     object-fit: contain;
-    background-color: #1a1a1a;
+    background-color: var(--color-bg-dark);
     border-radius: 5px;
     display: block;
     margin: 0 auto 5px auto;
@@ -56,26 +72,26 @@
 }
 
 .eleccion:hover {
-    background-color: #ff0;
-    color: #222;
+    background-color: var(--color-secondary);
+    color: var(--color-bg-dark);
     transform: scale(1.1);
 }
 
 /* SEGUNDA PANTALLA  */
 
 #look_stats {
-    font-family: 'Press Start 2P', monospace;
+    font-family: var(--font-pixel);
     text-align: center;
     font-size: 20px;
     margin-bottom: 30px;
 }
 
 #look_stats p {
-    color: black;
+    color: var(--color-bg-dark);
 }
 
 #look_stats p span {
-    color: rgb(255, 162, 0);
+    color: var(--color-primary);
     font-weight: bold;
 }
 
@@ -83,7 +99,7 @@
     width: 12rem;
     height: 12rem;
     object-fit: contain;
-    background-color: #1a1a1a;
+    background-color: var(--color-bg-dark);
     border-radius: 10px;
     margin-bottom: 20px;
     display: block;
@@ -92,34 +108,34 @@
 }
 
 #look_stats input[type="text"] {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 16px;
+    font-family: var(--font-pixel);
+    font-size: 12px;
     padding: 5px 10px;
-    border: 3px solid #ff0;
+    border: 3px solid var(--color-secondary);
     border-radius: 10px;
-    background-color: #222;
-    color: #fff;
+    background-color: var(--color-bg-dark);
+    color: var(--color-text);
     text-align: center;
     margin-bottom: 20px;
 }
 
 #look_stats button {
-    background-color: #222;
-    border: 3px solid #ff0;
+    background-color: var(--color-bg-dark);
+    border: 3px solid var(--color-secondary);
     border-radius: 10px;
     padding: 10px 20px;
     cursor: pointer;
-    font-family: 'Press Start 2P', monospace;
-    color: #fff;
+    font-family: var(--font-pixel);
+    color: var(--color-text);
     transition: all 0.2s ease;
     margin: 5px;
 }
 
 #look_stats button:hover {
-    background-color: #ff0;
-    color: #222;
+    background-color: var(--color-secondary);
+    color: var(--color-bg-dark);
     transform: scale(1.1);
-    box-shadow: 0 0 10px #ff0, 0 0 20px #f00, 0 0 30px #0f0;
+    box-shadow: var(--neon-shadow);
 }
 
 /* TERCERA PANTALLA */
@@ -130,7 +146,7 @@
 }
 
 #look_market {
-    font-family: 'Press Start 2P', monospace;
+    font-family: var(--font-pixel);
     text-align: center;
     font-size: 18px;
     margin-bottom: 30px;
@@ -142,7 +158,7 @@
 }
 
 #look_market h2 span {
-    color: rgb(255, 162, 0);
+    color: var(--color-primary);
     font-weight: bold;
 }
 
@@ -170,49 +186,56 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: #222;
-    border: 2px solid #ff0;
+    background-color: var(--color-bg-dark);
+    border: 2px solid var(--color-secondary);
     border-radius: 10px;
     text-align: center;
     font-family: 'Verdana', sans-serif;
     font-size: 10px;
-    color: #fff;
+    color: var(--color-text);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     transition: all 0.2s ease;
 }
 
 #marketItems div span,
 #purchasedItems div span {
-    color: rgb(255, 162, 0);
+    color: var(--color-primary);
 }
 
-#marketItems > div {
+#marketItems>div {
     opacity: 0;
     transform: translateY(50px);
 }
 
+#marketItems div:hover,
+#purchasedItems div:hover {
+    transform: scale(1.05) !important;
+    box-shadow: 0 10px 20px var(--color-bg-dark);
+    cursor: pointer;
+}
+
 #comprar {
-    background-color: #222;
-    border: 3px solid #ff0;
+    background-color: var(--color-bg-dark);
+    border: 3px solid var(--color-secondary);
     border-radius: 10px;
     padding: 10px 20px;
     cursor: pointer;
-    font-family: 'Press Start 2P', monospace;
-    color: #fff;
+    font-family: var(--font-pixel);
+    color: var(--color-text);
     transition: all 0.2s ease;
     margin: 5px;
 }
 
 #comprar:hover {
-    background-color: #ff0;
-    color: #222;
+    background-color: var(--color-secondary);
+    color: var(--color-bg-dark);
     transform: scale(1.1);
-    box-shadow: 0 0 10px #ff0, 0 0 20px #f00, 0 0 30px #0f0;
+    box-shadow: var(--neon-shadow);
 }
 
 .cart-anim {
     font-size: 16px;
-    color: green;
+    color: var(--color-success);
     animation: bajar 0.8s ease-out forwards;
 }
 
@@ -240,7 +263,7 @@
     width: 100%;
     height: 100%;
     border: none;
-    font-family: 'Press Start 2P', monospace;
+    font-family: var(--font-pixel);
     border-radius: 8px;
     cursor: pointer;
     backface-visibility: hidden;
@@ -253,14 +276,14 @@
 }
 
 .card-boton .front {
-    background: #4CAF50;
-    color: white;
+    background: var(--color-success);
+    color: var(--color-text);
     transform: rotateY(0deg);
 }
 
 .card-boton .back {
-    background: #ff4444;
-    color: white;
+    background: var(--color-danger);
+    color: var(--color-text);
     transform: rotateY(-180deg);
 }
 
@@ -276,9 +299,8 @@
 /* CUARTA PANTALLA */
 
 #player {
-    font-family: 'Press Start 2P', monospace;
-    color: rgb(255, 162, 0);
-    text-shadow: 1px 1px #f00, -1px -1px #00f, 2px 2px #0f0;
+    font-family: var(--font-pixel);
+    color: var(--color-bg-dark);
     text-align: center;
     font-size: 18px;
     margin-bottom: 30px;
@@ -288,7 +310,7 @@
     width: 12rem;
     height: 12rem;
     object-fit: contain;
-    background-color: #000;
+    background-color: var(--color-bg-dark);
     border-radius: 10px;
     margin-bottom: 20px;
     display: block;
@@ -301,6 +323,10 @@
     margin: 8px 0;
 }
 
+#player span {
+    color: var(--color-primary);
+}
+
 #playerEquipamiento {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -309,50 +335,88 @@
 }
 
 #playerEquipamiento div {
-    background-color: #222;
-    border: 2px solid #ff0;
+    background-color: var(--color-bg-dark);
+    border: 2px solid var(--color-secondary);
     border-radius: 10px;
     padding: 10px;
     text-align: center;
     font-family: 'Verdana', sans-serif;
     font-size: 14px;
-    color: #fff;
+    color: var(--color-text);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     transition: all 0.2s ease;
 }
 
 #playerEquipamiento div:hover {
-    background-color: #ff0;
-    color: #222;
+    background-color: var(--color-secondary);
+    color: var(--color-bg-dark);
     transform: scale(1.05);
-    box-shadow: 0 0 8px #ff0, 0 0 15px #f00, 0 0 20px #0f0;
+    box-shadow: var(--neon-shadow);
 }
 
-#player button#empezar {
-    background-color: #222;
-    border: 3px solid #ff0;
+#player button#verALosEnemigos {
+    background-color: var(--color-bg-dark);
+    border: 3px solid var(--color-secondary);
     border-radius: 10px;
     padding: 10px 20px;
     cursor: pointer;
-    font-family: 'Press Start 2P', monospace;
-    color: #fff;
+    font-family: var(--font-pixel);
+    color: var(--color-text);
     transition: all 0.2s ease;
     margin-top: 20px;
 }
 
-#player button#empezar:hover {
-    background-color: #ff0;
-    color: #222;
+#player button#verALosEnemigos:hover {
+    background-color: var(--color-secondary);
+    color: var(--color-bg-dark);
     transform: scale(1.1);
-    box-shadow: 0 0 10px #ff0, 0 0 20px #f00, 0 0 30px #0f0;
+    box-shadow: var(--neon-shadow);
+}
+
+/* PANTALLA VER PERSONAJES */
+
+#verEnemigo {
+    font-family: var(--font-pixel);
+    color: var(--color-bg-dark);
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+#verEnemigo span {
+    color: var(--color-primary);
+}
+
+#rivales-container{
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+}
+
+#verEnemigo button#empezar {
+    background-color: var(--color-bg-dark);
+    border: 3px solid var(--color-secondary);
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: var(--font-pixel);
+    color: var(--color-text);
+    transition: all 0.2s ease;
+    margin-top: 20px;
+}
+
+#verEnemigo button#empezar:hover {
+    background-color: var(--color-secondary);
+    color: var(--color-bg-dark);
+    transform: scale(1.1);
+    box-shadow: var(--neon-shadow);
 }
 
 /* QUINTA PANTALLA */
 
 #enemigo {
-    font-family: 'Press Start 2P', monospace;
-    color: rgb(255, 162, 0);
-    text-shadow: 1px 1px #f00, -1px -1px #00f, 2px 2px #0f0;
+    font-family: var(--font-pixel);
+    color: var(--color-bg-dark);
     text-align: center;
     font-size: 18px;
     margin-bottom: 30px;
@@ -361,6 +425,10 @@
 #enemigo h2 {
     margin-bottom: 20px;
     font-size: 20px;
+}
+
+#enemigo h4 {
+    color: var(--color-primary);
 }
 
 #pantallaBatalla {
@@ -376,28 +444,28 @@
     width: 200px;
     height: 200px;
     object-fit: contain;
-    background-color: #000;
+    background-color: var(--color-bg-dark);
     border-radius: 10px;
-    border: 2px solid #ff0;
+    border: 2px solid var(--color-secondary);
 }
 
 #enemigo button#finEnemigo {
-    background-color: #222;
-    border: 3px solid #ff0;
+    background-color: var(--color-bg-dark);
+    border: 3px solid var(--color-secondary);
     border-radius: 10px;
     padding: 10px 20px;
     cursor: pointer;
-    font-family: 'Press Start 2P', monospace;
-    color: #fff;
+    font-family: var(--font-pixel);
+    color: var(--color-text);
     transition: all 0.2s ease;
     margin-top: 20px;
 }
 
 #enemigo button#finEnemigo:hover {
-    background-color: #ff0;
-    color: #222;
+    background-color: var(--color-secondary);
+    color: var(--color-bg-dark);
     transform: scale(1.1);
-    box-shadow: 0 0 10px #ff0, 0 0 20px #f00, 0 0 30px #0f0;
+    box-shadow: var(--neon-shadow);
 }
 
 @keyframes entrarJugador {
@@ -427,8 +495,8 @@
 /* SEXTA PANTALLA */
 
 #jefe {
-    font-family: 'Press Start 2P', monospace;
-    color: rgb(255, 162, 0);
+    font-family: var(--font-pixel);
+    color: var(--color-bg-dark);
     text-align: center;
     font-size: 18px;
     margin-bottom: 30px;
@@ -437,6 +505,10 @@
 #jefe h2 {
     margin-bottom: 10px;
     font-size: 20px;
+}
+
+#jefe h4 {
+    color: var(--color-primary);
 }
 
 #jefe #pantallaBatalla {
@@ -452,26 +524,26 @@
     width: 200px;
     height: 200px;
     object-fit: contain;
-    background-color: #000;
+    background-color: var(--color-bg-dark);
     border-radius: 10px;
-    border: 2px solid #ff0;
+    border: 2px solid var(--color-secondary);
 }
 
 #jefe button#fin {
-    background-color: #222;
-    border: 3px solid #ff0;
+    background-color: var(--color-bg-dark);
+    border: 3px solid var(--color-secondary);
     border-radius: 10px;
     padding: 10px 20px;
     cursor: pointer;
     font-family: 'Press Start 2P', monospace;
-    color: #fff;
+    color: var(--color-text);
     transition: all 0.2s ease;
     margin-top: 20px;
 }
 
 #jefe button#fin:hover {
-    background-color: #ff0;
-    color: #222;
+    background-color: var(--color-secondary);
+    color: var(--color-bg-dark);
     transform: scale(1.1);
     box-shadow: 0 0 10px #ff0, 0 0 20px #f00, 0 0 30px #0f0;
 }
@@ -491,8 +563,8 @@
 /* ULTIMA PANTALLA  */
 
 #ranking {
-    font-family: 'Press Start 2P', monospace;
-    color: rgb(255, 162, 0);
+    font-family: var(--font-pixel);
+    color: var(--color-primary);
     text-shadow: 1px 1px #f00, -1px -1px #00f, 2px 2px #0f0;
     text-align: center;
     font-size: 18px;
@@ -500,29 +572,29 @@
 }
 
 #ranking_final div:hover {
-    background-color: #ff0;
-    color: #222;
+    background-color: var(--color-secondary);
+    color: var(--color-bg-dark);
     transform: scale(1.05);
     box-shadow: 0 0 8px #ff0, 0 0 15px #f00, 0 0 20px #0f0;
 }
 
 #ranking button#volver_inicio {
-    background-color: #222;
-    border: 3px solid #ff0;
+    background-color: var(--color-bg-dark);
+    border: 3px solid var(--color-secondary);
     border-radius: 10px;
     padding: 10px 20px;
     cursor: pointer;
-    font-family: 'Press Start 2P', monospace;
-    color: #fff;
+    font-family: var(--font-pixel);
+    color: var(--color-text);
     transition: all 0.2s ease;
     margin-top: 20px;
 }
 
 #ranking button#volver_inicio:hover {
-    background-color: #ff0;
-    color: #222;
+    background-color: var(--color-secondary);
+    color: var(--color-bg-dark);
     transform: scale(1.1);
-    box-shadow: 0 0 10px #ff0, 0 0 20px #f00, 0 0 30px #0f0;
+    box-shadow: 0 0 10px var(--neon-shadow);
 }
 
 /* BATALLA CONJUNTA  */
@@ -534,24 +606,24 @@
 }
 
 .ataque_jugador {
-    color: #2ecc71;
+    color: var(--color-success);
 }
 
 .ataque_enemigo {
-    color: #e74c3c;
+    color: var(--color-danger);
 }
 
 .ronda {
     margin-bottom: 10px;
     padding: 5px;
-    border-bottom: 1px solid #555;
+    border-bottom: 1px solid var(--color-bg-dark);
 }
 
 /* RESPONSIVE */
 
 @media (width < 800px) {
     #marketItems {
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 4px 10px var(--color-bg-dark);
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         grid-template-rows: repeat(2, 1fr);
@@ -560,10 +632,23 @@
 
 @media (width < 520px) {
     #marketItems {
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 4px 10px var(--color-bg-dark);
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(2, 1fr);
+    }
+
+    #choose_player h2 {
+        font-size: 22px;
+    }
+}
+
+@media (width < 380px) {
+    #marketItems {
+        box-shadow: 0 4px 10px var(--color-bg-dark);
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(1, 1fr);
     }
 }
 
@@ -576,17 +661,21 @@ header {
     justify-content: center;
 }
 
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
 #footer {
     font-family: 'Press Start 2P', monospace;
     font-size: 12px;
-    color: rgb(255, 162, 0);
-    text-shadow: 1px 1px #f00, -1px -1px #00f;
+    color: var(--color-primary);
     text-align: center;
-    background-color: #222;
+    background-color: var(--color-bg-dark);
     padding: 10px 0;
-    border-top: 2px solid #ff0;
-    position: fixed;
+    border-top: 2px solid var(--color-secondary);
     width: 100%;
-    bottom: 0;
-    left: 0;
+    margin-top: auto;
 }

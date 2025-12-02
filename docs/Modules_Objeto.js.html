@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Modules/Objeto.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Modules/Objeto.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>export class Objeto {
+    nombre;
+    precio;
+    rareza;
+    tipo;
+    bonus;
+    imagen;
+
+    /**
+     * Crea una nueva instancia de un Objeto.
+     *
+     * @param {string} nombre - El nombre del objeto.
+     * @param {number} precio - El precio en céntimos (ej. 1250 para 12.50€).
+     * @param {string} rareza - La rareza del objeto.
+     * @param {string} tipo - El tipo de equipamiento.
+     * @param {Object.&lt;string, number>} bonus - Objeto con las mejoras (ej. `{ ataque: 10, vida: 5 }`).
+     */
+
+    constructor(nombre, precio, rareza, tipo, bonus) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.precioBase = precio;
+        this.rareza = rareza;
+        this.tipo = tipo;
+        this.bonus = bonus;
+        this.imagen = this.getImagen();
+    }
+
+    /**
+     * Convierte un valor numérico (céntimos) a formato de moneda local.
+     *
+     * @param {number} cantidad - La cantidad numérica a formatear.
+     * @returns {string} El precio formateado (ej. "12,50€").
+     */
+
+    formatearPrecio(cantidad) {
+        let valor = cantidad / 100;
+        return valor.toFixed(2).replace('.', ',') + '€';
+    }
+
+    /**
+     * Obtiene el precio actual del objeto formateado como moneda.
+     *
+     * @returns {string} El precio actual formateado.
+     */
+    getPrecioFormateado() {
+        return this.formatearPrecio(this.precio);
+    }
+
+    /**
+     * Genera una representación HTML de la tarjeta del producto.
+     * Incluye la imagen, el nombre y la lista de bonus formateada.
+     *
+     * @returns {string} Cadena HTML lista para insertar en el DOM.
+     */
+    mostrarInfo() {
+        const bonusStr = Object.entries(this.bonus).map(([k, v]) => `${k}: ${v}`).join(', ');
+        return `&lt;img src="${this.imagen}" alt="${this.nombre}" width="70" height="70"/> 
+                &lt;p>&lt;strong>${this.nombre}&lt;/strong>&lt;br>&lt;br> 
+                &lt;strong>Bonus: &lt;span>${bonusStr}&lt;/span>&lt;/strong> &lt;/p>`;
+    }
+
+    /**
+         * Determina la ruta de la imagen basándose en el tipo y nombre del objeto.
+         * Método auxiliar interno usado durante la construcción.
+         *
+         * @returns {string} Ruta al archivo de imagen.
+         */
+
+    getImagen() {
+        if (this.tipo === 'Arma' &amp;&amp; this.nombre === 'Espada Carmesí') {
+            return "./IMG/espadaCarmesi.webp";
+        } else if (this.tipo === 'Arma' &amp;&amp; this.nombre === 'Hacha del Trueno') {
+            return "./IMG/hachaTrueno.png";
+        } else if (this.tipo === 'Arma' &amp;&amp; this.nombre === 'Látigo Sombrío') {
+            return "./IMG/latigoSombrio.webp";
+        } else if (this.tipo === 'Arma' &amp;&amp; this.nombre === 'Katana Celestial') {
+            return "./IMG/katanaCelestial.png";
+        } else if (this.tipo === 'Arma' &amp;&amp; this.nombre === 'Martillo del Gigante') {
+            return "./IMG/martilloGigante.webp";
+        } else if (this.tipo === 'Armadura' &amp;&amp; this.nombre === 'Muro de Hierro') {
+            return "./IMG/muroHierro.png";
+        } else if (this.tipo === 'Armadura' &amp;&amp; this.nombre === 'Escudo del León') {
+            return "./IMG/escudoLeon.png";
+        } else if (this.tipo === 'Armadura' &amp;&amp; this.nombre === 'Placas de Acero') {
+            return "./IMG/placaAcero.png";
+        } else if (this.tipo === 'Armadura' &amp;&amp; this.nombre === 'Casco del Centinela') {
+            return "./IMG/cascoCentinela.png";
+        } else if (this.tipo === 'Armadura' &amp;&amp; this.nombre === 'Guanteletes de Diamante') {
+            return "./IMG/guantesDiamante.webp";
+        } else if (this.tipo === 'Accesorio' &amp;&amp; this.nombre === 'Anillo del Eclipse') {
+            return "./IMG/anilloEclipse.png";
+        } else if (this.tipo === 'Accesorio' &amp;&amp; this.nombre === 'Colgante del Viento') {
+            return "./IMG/colganteViento.png";
+        } else if (this.tipo === 'Accesorio' &amp;&amp; this.nombre === 'Amuleto del Guardián') {
+            return "./IMG/amuletoGuardian.png";
+        } else if (this.tipo === 'Accesorio' &amp;&amp; this.nombre === 'Talisman de Sangre') {
+            return "./IMG/talismanSangre.png";
+        } else if (this.tipo === 'Accesorio' &amp;&amp; this.nombre === 'Brazalete del Sabio') {
+            return "./IMG/brazaleteSabio.webp";
+        } else {
+            return "./IMG/pocion.png";
+        }
+    }
+
+    /**
+     * Calcula el nuevo precio tras aplicar un porcentaje de descuento sobre el precio base.
+     * Nota: Este método devuelve el valor calculado, no actualiza el precio del objeto automáticamente en este snippet.
+     *
+     * @param {number} porcentaje - El porcentaje a descontar (0 a 100).
+     * @returns {number} El nuevo precio calculado (entero).
+     */
+
+    aplicarDescuento(porcentaje) {
+        if (porcentaje &lt; 0 || porcentaje > 100) {
+            console.error("Porcentaje inválido");
+            return this.precio;
+        }
+
+        const nuevoPrecio = Math.round(this.precioBase * (1 - porcentaje / 100));
+        return nuevoPrecio;
+    }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Enemigo.html">Enemigo</a></li><li><a href="Jefe.html">Jefe</a></li><li><a href="Objeto_Objeto.html">Objeto</a></li><li><a href="Personaje.html">Personaje</a></li></ul><h3>Global</h3><ul><li><a href="global.html#aplicarDescuento">aplicarDescuento</a></li><li><a href="global.html#batalla">batalla</a></li><li><a href="global.html#batallaJefe">batallaJefe</a></li><li><a href="global.html#buscarProducto">buscarProducto</a></li><li><a href="global.html#deepClone">deepClone</a></li><li><a href="global.html#filtrarPorRareza">filtrarPorRareza</a></li><li><a href="global.html#groupBy">groupBy</a></li><li><a href="global.html#mostrarBatalla">mostrarBatalla</a></li><li><a href="global.html#mostrarFinal">mostrarFinal</a></li><li><a href="global.html#mostrarJugador">mostrarJugador</a></li><li><a href="global.html#mostrarMarket">mostrarMarket</a></li><li><a href="global.html#mostrarProducto">mostrarProducto</a></li><li><a href="global.html#mostrarRanking">mostrarRanking</a></li><li><a href="global.html#mostrarStats">mostrarStats</a></li><li><a href="global.html#objetos">objetos</a></li><li><a href="global.html#showScene">showScene</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Tue Dec 02 2025 17:11:26 GMT+0100 (hora estándar de Europa central)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

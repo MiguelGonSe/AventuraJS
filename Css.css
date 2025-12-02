@@ -390,7 +390,37 @@
 #rivales-container {
     display: flex;
     justify-content: center;
-    gap: 100px;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+.rival-card {
+    background-color: var(--color-bg-dark);
+    border: 3px solid var(--color-secondary);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    width: 40%;
+    max-width: 350px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s ease;
+}
+
+.rival-card p {
+    color: var(--color-text);
+}
+
+.rival-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border: 1px solid var(--color-text);
+}
+
+.rival-card:hover {
+    transform: scale(1.05);
+    box-shadow: var(--neon-shadow);
 }
 
 #verEnemigo button#empezar {
@@ -628,6 +658,23 @@
         grid-template-columns: repeat(3, 1fr);
         grid-template-rows: repeat(2, 1fr);
     }
+
+    #verEnemigo h1 {
+        font-size: 24px;
+    }
+}
+
+@media (max-width < 600px) {
+
+    .rival-card {
+        width: 90%;
+        max-width: 400px;
+        margin-bottom: 10px;
+    }
+
+    #verEnemigo h1 {
+        font-size: 24px;
+    }
 }
 
 @media (width < 520px) {
@@ -640,6 +687,15 @@
 
     #choose_player h2 {
         font-size: 22px;
+    }
+
+    .rival-card {
+        width: 90%;
+        max-width: none;
+    }
+
+    #verEnemigo h1 {
+        font-size: 24px;
     }
 }
 

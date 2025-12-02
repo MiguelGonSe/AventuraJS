@@ -387,7 +387,7 @@
     color: var(--color-primary);
 }
 
-#rivales-container{
+#rivales-container {
     display: flex;
     justify-content: center;
     gap: 100px;
@@ -666,6 +666,7 @@ body {
     display: flex;
     flex-direction: column;
     margin: 0;
+    background-color: #e2f6fc;
 }
 
 #footer {

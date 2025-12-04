@@ -31,13 +31,17 @@
             <img id="chosenImgStats" src="" alt="Personaje elegido" width="12rem">
 
             <label for="nombre">Elige tu nombre:</label>
-            <input type="text" id="nombre" name="nombre" maxlength="20" required>
+            <input type="text" id="nombre" name="nombre" pattern="^^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{3,20}$"
+                title="Entre 3 y 20 caracteres, letras y espacios. No se pueden espacios en blanco" maxlength="20" required>
 
-            <p>Vida: <span id="vida"></span></p>
-            <p>Ataque: <span id="ataque"></span></p>
-            <p>Defensa: <span id="defensa"></span></p>
+            <p>Vida: <span id="vida"></span><button id="sumaVida">+</button> <button id="restaVida">-</button></p>
+            <p>Ataque: <span id="ataque"></span> <button id="sumaAtaque">+</button> <button id="restaAtaque">-</button>
+            </p>
+            <p>Defensa: <span id="defensa"></span> <button id="sumaDefensa">+</button> <button
+                    id="restadefensa">-</button></p>
             <p>Puntos: <span id="puntos"></span></p>
-            <p>Monedas: <span id="monedas"></span></p>
+            <p>Monedas: <span id="dinero"></span></p>
+            <p>Puntos Habilidad: <span id="phabilidad"></span></p>
 
             <button id="ir_market">Ir al market</button>
             <button id="back_choose_player">Volver</button>
@@ -126,6 +130,7 @@
 
         <div id="ranking" class="scene">
             <div id="ranking_final"></div>
+            <button id="verRanking">Ver ranking</button>
             <button id="volver_inicio">Volver</button>
         </div>
 

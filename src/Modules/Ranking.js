@@ -48,7 +48,9 @@ export function batalla(jugador, enemigo) {
         const puntosGanados = 100 + enemigo.ataque;
         jugador.puntos += puntosGanados;
         jugador.vida = vidaJugador + 100;
-        resultadoHTML += `<h4>🏆 ${jugador.nombre} ha ganado (${puntosGanados} pts y +100 vida)</h4>`;
+        jugador.dinero += 5;
+        puntosTotal = jugador.puntos + jugador.dinero + puntosGanados;
+        resultadoHTML += `<h4>🏆 ${jugador.nombre} ha ganado (${puntosTotal} pts, ganado 5 monedas y +100 vida)</h4>`;
     } else {
         resultadoHTML += `<h4>💀 ${enemigo.nombre} ha ganado. ¡Has perdido!</h4>`;
     }
@@ -100,7 +102,9 @@ export function batallaJefe(jugador, jefe) {
     if (vidaJefe <= 0) {
         const puntosGanados = (100 + jefe.ataque) * (jefe.multiplicador ?? 1);
         jugador.puntos += puntosGanados;
-        resultadoHTML += `<h4>🏆 ${jugador.nombre} ha ganado el juego (${puntosGanados} pts), ENHORABUENA</h4>`;
+        jugador.dinero += 10;
+        puntosTotal = jugador.puntos + jugador.dinero + puntosGanados;
+        resultadoHTML += `<h4>🏆 ${jugador.nombre} ha ganado el juego (${puntosTotal} pts) y ha ganado 10 monedas, ENHORABUENA</h4>`;
     } else {
         resultadoHTML += `<h4>💀 ${jefe.nombre} ha ganado. ¡Has perdido!</h4>`;
     }

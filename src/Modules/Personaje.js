@@ -14,8 +14,9 @@ export class Personaje {
     vida;
     puntos;
     vidaMaxima = 500;
-    monedas = 4000;
+    dinero = 50000;
     inventario;
+    phabilidad = 10;
 
     /**
      * Crea una instancia del Personaje.
@@ -27,13 +28,14 @@ export class Personaje {
      * @param {number} vidaMaxima - Tope de salud del personaje.
      */
 
-    constructor(ataque, defensa, puntos, vidaMaxima) {
+    constructor(ataque, defensa, puntos, vidaMaxima, phabilidad) {
         this.ataque = ataque;
         this.defensa = defensa;
         this.puntos = puntos;
         this.vidaMaxima = vidaMaxima;
         this.vida = vidaMaxima;
         this.inventario = [];
+        this.phabilidad = phabilidad;
     }
 
     /**
@@ -113,7 +115,7 @@ export class Personaje {
     mostrarPersonaje() {
         return `
         👤 ${this.nombre}
-        💰 Monedas: ${this.monedas}
+        💰 Monedas: ${this.dinero}
         ❤ Vida: ${this.vida}/${this.vidaMaxima}
         ⭐ Puntos: ${this.puntos}
         ⚔ Ataque total: ${this.ataqueTotal}

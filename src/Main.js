@@ -18,24 +18,24 @@ let jugador;
 let imagen = "";
 const comprado = new Map();
 const objetosComprados = [];
-const minotauro = new Enemigo('Minotauro', 50, 25, 200);
-const dragon = new Jefe('Dragon', 100, 50, 300, 'Fuego Letal');
+const minotauro = new Enemigo('Minotauro', 5, 5, 35);
+const dragon = new Jefe('Dragon', 20, 20, 100, 'Fuego Letal');
 
 // ELECCIÓN DE JUGADOR
 document.getElementById('botonElfo').addEventListener('click', function () {
-    jugador = new Personaje(80, 50, 0, 300);
+    jugador = new Personaje(0, 0, 0, 100, 10);
     imagen = 'IMG/legolas.webp';
     mostrarStats(imagen);
 });
 
 document.getElementById('botonGuerrero').addEventListener('click', function () {
-    jugador = new Personaje(90, 40, 0, 300);
+    jugador = new Personaje(0, 0, 0, 100, 10);
     imagen = 'IMG/guerrero.png';
     mostrarStats(imagen);
 });
 
 document.getElementById('botonOrco').addEventListener('click', function () {
-    jugador = new Personaje(70, 60, 0, 350);
+    jugador = new Personaje(0, 0, 0, 100, 10);
     imagen = 'IMG/orco.png';
     mostrarStats(imagen);
 });
@@ -50,24 +50,115 @@ document.getElementById('back_choose_player').addEventListener('click', () => sh
  * @param {string} imagen - Ruta de la imagen del personaje a mostrar.
  */
 function mostrarStats(imagen) {
+
     showScene('look_stats');
     document.getElementById('chosenImgStats').src = imagen;
     document.getElementById('vida').textContent = jugador.vida;
     document.getElementById('ataque').textContent = jugador.ataque;
     document.getElementById('defensa').textContent = jugador.defensa;
     document.getElementById('puntos').textContent = jugador.puntos;
-    document.getElementById('monedas').textContent = jugador.monedas;
+    document.getElementById('dinero').textContent = jugador.dinero;
+    document.getElementById('phabilidad').textContent = jugador.phabilidad;
+
+    let ataqueTotal = jugador.ataque;
+    let defensaTotal = jugador.defensa;
+    let vidaTotal = jugador.vida;
+    let phabilidadTotal = jugador.phabilidad;
+
+    document.getElementById('sumaVida').addEventListener('click', function () {
+        if (phabilidadTotal > 0 && vidaTotal >= 100) {
+            vidaTotal += 1 || 0;
+            phabilidadTotal -= 1 || 0;
+            console.log(vidaTotal);
+        } else {
+            alert("No tienes suficientes punto de habilidad para comprar esto.")
+        }
+    })
+
+    document.getElementById('sumaAtaque').addEventListener('click', function () {
+        if (phabilidadTotal > 0 && ataqueTotal >= 0) {
+            ataqueTotal += 1 || 0;
+            phabilidadTotal -= 1 || 0;
+            console.log(ataqueTotal);
+        } else {
+            alert("No tienes suficientes punto de habilidad para comprar esto.")
+        }
+    })
+
+    document.getElementById('sumaDefensa').addEventListener('click', function () {
+        if (phabilidadTotal > 0 && defensaTotal >= 0) {
+            defensaTotal += 1 || 0;
+            phabilidadTotal -= 1 || 0;
+            console.log(defensaTotal);
+        } else {
+            alert("No tienes suficientes punto de habilidad para comprar esto.")
+        }
+    })
+
+    document.getElementById('restaVida').addEventListener('click', function () {
+        if (phabilidadTotal > 0 && vidaTotal > 100) {
+            vidaTotal -= 1 || 0;
+            phabilidadTotal += 1 || 0;
+            console.log(vidaTotal);
+        } else {
+            alert("No tienes suficientes punto de habilidad para comprar esto.")
+        }
+    })
+
+    document.getElementById('restaAtaque').addEventListener('click', function () {
+        if (phabilidadTotal > 0 && ataqueTotal > 0) {
+            ataqueTotal -= 1 || 0;
+            phabilidadTotal += 1 || 0;
+            console.log(ataqueTotal);
+        } else {
+            alert("No tienes suficientes punto de habilidad para comprar esto.")
+        }
+    })
+
+    document.getElementById('restadefensa').addEventListener('click', function () {
+        if (phabilidadTotal > 0 && defensaTotal > 0) {
+            defensaTotal -= 1 || 0;
+            phabilidadTotal += 1 || 0;
+            console.log(defensaTotal);
+        } else {
+            alert("No tienes suficientes punto de habilidad para comprar esto.")
+        }
+    })
 }
+
 
 // MARKET
 document.getElementById('ir_market').addEventListener('click', function () {
 
     const inputNombre = document.getElementById('nombre');
     jugador.nombre = inputNombre.value;
-    const nombreJugador = inputNombre.value.trim() || jugador.nombre;
-    const monedasJugador = jugador.monedas;
 
-    mostrarMarket(imagen, nombreJugador, monedasJugador);
+    const nombreJugador = inputNombre.value.trim() || jugador.nombre;
+
+    function capitalizarPrimeraLetra(nombreJugador) {
+        return nombreJugador.charAt(0).toUpperCase() + nombreJugador.slice(1);
+    }
+
+    // const regex = /^[A-Za-z0-9_-]{3,20}$/;
+
+    // if (!regex.test(inputNombre)) {
+    //     alert('Nombre de usuario no válido');
+    //     location.reload();
+    // }
+
+    if (!inputNombre.checkValidity()) {
+        inputNombre.reportValidity();
+        return;
+    }
+
+    if (inputNombre.value.trim().length < 2) {
+        alert('Nombre de usuario no válido');
+        location.reload();
+    }
+
+    const monedasJugador = jugador.dinero;
+
+    mostrarMarket(imagen, capitalizarPrimeraLetra(nombreJugador), monedasJugador);
 
     const marketItemsDiv = document.getElementById('marketItems');
     marketItemsDiv.textContent = "";
@@ -117,9 +208,9 @@ document.getElementById('ir_market').addEventListener('click', function () {
         botonComprar.addEventListener('click', () => {
             if (comprado.has(index)) return; // ya comprado
 
-            if (jugador.monedas >= obj.precioConDescuento) {
-                jugador.monedas -= obj.precioConDescuento;
-                document.getElementById('monedasMarket').textContent = jugador.monedas;
+            if (jugador.dinero >= obj.precioConDescuento) {
+                jugador.dinero -= obj.precioConDescuento;
+                document.getElementById('monedasMarket').textContent = jugador.dinero;
 
                 const purchasedItem = document.createElement('div');
                 purchasedItem.innerHTML = obj.mostrarInfo();
@@ -147,8 +238,8 @@ document.getElementById('ir_market').addEventListener('click', function () {
             const purchasedItem = comprado.get(index);
             purchasedDiv.removeChild(purchasedItem);
 
-            jugador.monedas += obj.precioConDescuento;
-            document.getElementById('monedasMarket').textContent = jugador.monedas;
+            jugador.dinero += obj.precioConDescuento;
+            document.getElementById('monedasMarket').textContent = jugador.dinero;
 
             comprado.delete(index);
             itemDiv.style.backgroundColor = '';
@@ -183,13 +274,13 @@ document.getElementById('ir_market').addEventListener('click', function () {
  *
  * @param {string} imagen - Avatar del jugador.
  * @param {string} nombre - Nombre introducido.
- * @param {number} monedas - Saldo actual.
+ * @param {number} dinero - Saldo actual.
  */
-function mostrarMarket(imagen, nombre, monedas) {
+function mostrarMarket(imagen, nombre, dinero) {
     showScene('look_market');
     document.getElementById('chosenImgMarket').src = imagen;
     document.getElementById('nombreMarket').textContent = nombre;
-    document.getElementById('monedasMarket').textContent = formatearDinero(monedas);
+    document.getElementById('monedasMarket').textContent = formatearDinero(dinero);
 }
 
 //PERSONAJE CON TODO
@@ -223,7 +314,11 @@ function mostrarJugador() {
     document.getElementById('playerAtaque').textContent = ataqueTotal;
     document.getElementById('playerDefensa').textContent = defensaTotal;
     document.getElementById('playerPuntos').textContent = jugador.puntos;
-    document.getElementById('playerMonedas').textContent = jugador.monedas;
+    document.getElementById('playerMonedas').textContent = jugador.dinero;
+
+    localStorage.setItem('playerNombre', jugador.nombre);
+    localStorage.setItem('playerPuntos', jugador.puntos);
+    localStorage.setItem('playerMonedas', jugador.dinero);
 
     const equipDiv = document.getElementById('playerEquipamiento');
     equipDiv.textContent = "";
@@ -283,6 +378,10 @@ function mostrarBatalla() {
     const resultadoHTML = batalla(jugador, minotauro);
     const logicaBatallaDiv = document.getElementById('logicaBatalla');
     logicaBatallaDiv.innerHTML = resultadoHTML;
+
+    localStorage.setItem('playerNombre', jugador.nombre);
+    localStorage.setItem('playerPuntos', jugador.puntos);
+    localStorage.setItem('playerMonedas', jugador.dinero);
 }
 
 //BATALLA JEFE
@@ -305,6 +404,9 @@ function mostrarBatallaJefe() {
     const resultadoHTML = batallaJefe(jugador, dragon);
     const logicaBatallaDiv = document.getElementById('logicaBatallaJefe');
     logicaBatallaDiv.innerHTML = resultadoHTML;
+    localStorage.setItem('playerNombre', jugador.nombre);
+    localStorage.setItem('playerPuntos', jugador.puntos);
+    localStorage.setItem('playerMonedas', jugador.dinero);
 }
 
 document.getElementById('fin').addEventListener('click', function () {
@@ -313,6 +415,16 @@ document.getElementById('fin').addEventListener('click', function () {
 
 document.getElementById('volver_inicio').addEventListener('click', () => {
     location.reload();
+});
+
+document.getElementById('verRanking').addEventListener('click', () => {
+    const playerNombre = localStorage.getItem("jugador.nombre");
+    const playerPuntos = localStorage.getItem("jugador.puntos");
+    const playerMonedas = localStorage.getItem("jugador.dinero");
+
+    console.log(localStorage.getItem("playerNombre"));
+    console.log(localStorage.getItem("playerPuntos"));
+    console.log(localStorage.getItem("playerMonedas"));
 });
 
 /**

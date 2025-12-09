@@ -18,25 +18,25 @@ let jugador;
 let imagen = "";
 const comprado = new Map();
 const objetosComprados = [];
-const minotauro = new Enemigo('Minotauro', 5, 5, 35);
-const dragon = new Jefe('Dragon', 20, 20, 100, 'Fuego Letal');
+const caballero = new Enemigo('Caballero', 5, 5, 35);
+const boss = new Jefe('Boss', 20, 20, 100, 'Fuego Letal');
 
 // ELECCIÓN DE JUGADOR
-document.getElementById('botonElfo').addEventListener('click', function () {
+document.getElementById('botonTroll').addEventListener('click', function () {
     jugador = new Personaje(0, 0, 0, 100, 10);
-    imagen = 'IMG/legolas.webp';
-    mostrarStats(imagen);
-});
-
-document.getElementById('botonGuerrero').addEventListener('click', function () {
-    jugador = new Personaje(0, 0, 0, 100, 10);
-    imagen = 'IMG/guerrero.png';
+    imagen = 'IMG/troll.png';
     mostrarStats(imagen);
 });
 
 document.getElementById('botonOrco').addEventListener('click', function () {
     jugador = new Personaje(0, 0, 0, 100, 10);
     imagen = 'IMG/orco.png';
+    mostrarStats(imagen);
+});
+
+document.getElementById('botonFantasma').addEventListener('click', function () {
+    jugador = new Personaje(0, 0, 0, 100, 10);
+    imagen = 'IMG/fantasma.png';
     mostrarStats(imagen);
 });
 
@@ -50,82 +50,73 @@ document.getElementById('back_choose_player').addEventListener('click', () => sh
  * @param {string} imagen - Ruta de la imagen del personaje a mostrar.
  */
 function mostrarStats(imagen) {
-
     showScene('look_stats');
     document.getElementById('chosenImgStats').src = imagen;
-    document.getElementById('vida').textContent = jugador.vida;
-    document.getElementById('ataque').textContent = jugador.ataque;
-    document.getElementById('defensa').textContent = jugador.defensa;
-    document.getElementById('puntos').textContent = jugador.puntos;
-    document.getElementById('dinero').textContent = jugador.dinero;
-    document.getElementById('phabilidad').textContent = jugador.phabilidad;
 
     let ataqueTotal = jugador.ataque;
     let defensaTotal = jugador.defensa;
     let vidaTotal = jugador.vida;
     let phabilidadTotal = jugador.phabilidad;
 
-    document.getElementById('sumaVida').addEventListener('click', function () {
-        if (phabilidadTotal > 0 && vidaTotal >= 100) {
-            vidaTotal += 1 || 0;
-            phabilidadTotal -= 1 || 0;
-            console.log(vidaTotal);
-        } else {
-            alert("No tienes suficientes punto de habilidad para comprar esto.")
-        }
-    })
+    const actualizarBotones = () => {
+        document.getElementById('vida').textContent = vidaTotal;
+        document.getElementById('ataque').textContent = ataqueTotal;
+        document.getElementById('defensa').textContent = defensaTotal;
+        document.getElementById('phabilidad').textContent = phabilidadTotal;
+        document.getElementById("puntos").textContent = jugador.puntos;
+        document.getElementById("dinero").textContent = jugador.dinero;
 
-    document.getElementById('sumaAtaque').addEventListener('click', function () {
-        if (phabilidadTotal > 0 && ataqueTotal >= 0) {
-            ataqueTotal += 1 || 0;
-            phabilidadTotal -= 1 || 0;
-            console.log(ataqueTotal);
-        } else {
-            alert("No tienes suficientes punto de habilidad para comprar esto.")
-        }
-    })
+        jugador.vida = vidaTotal;
+        jugador.ataque = ataqueTotal;
+        jugador.defensa = defensaTotal;
+        jugador.phabilidad = phabilidadTotal;
+    };
 
-    document.getElementById('sumaDefensa').addEventListener('click', function () {
-        if (phabilidadTotal > 0 && defensaTotal >= 0) {
-            defensaTotal += 1 || 0;
-            phabilidadTotal -= 1 || 0;
-            console.log(defensaTotal);
-        } else {
-            alert("No tienes suficientes punto de habilidad para comprar esto.")
+    document.getElementById('sumaVida').onclick = () => {
+        if (phabilidadTotal > 0) {
+            vidaTotal++;
+            phabilidadTotal--;
+            actualizarBotones();
         }
-    })
+    };
+    document.getElementById('sumaAtaque').onclick = () => {
+        if (phabilidadTotal > 0) {
+            ataqueTotal++;
+            phabilidadTotal--;
+            actualizarBotones();
+        }
+    };
+    document.getElementById('sumaDefensa').onclick = () => {
+        if (phabilidadTotal > 0) {
+            defensaTotal++;
+            phabilidadTotal--;
+            actualizarBotones();
+        }
+    };
 
-    document.getElementById('restaVida').addEventListener('click', function () {
-        if (phabilidadTotal > 0 && vidaTotal > 100) {
-            vidaTotal -= 1 || 0;
-            phabilidadTotal += 1 || 0;
-            console.log(vidaTotal);
-        } else {
-            alert("No tienes suficientes punto de habilidad para comprar esto.")
+    document.getElementById('restaVida').onclick = () => {
+        if (vidaTotal > 100) {
+            vidaTotal--;
+            phabilidadTotal++;
+            actualizarBotones();
         }
-    })
-
-    document.getElementById('restaAtaque').addEventListener('click', function () {
-        if (phabilidadTotal > 0 && ataqueTotal > 0) {
-            ataqueTotal -= 1 || 0;
-            phabilidadTotal += 1 || 0;
-            console.log(ataqueTotal);
-        } else {
-            alert("No tienes suficientes punto de habilidad para comprar esto.")
+    };
+    document.getElementById('restaAtaque').onclick = () => {
+        if (ataqueTotal > 0) {
+            ataqueTotal--;
+            phabilidadTotal++;
+            actualizarBotones();
         }
-    })
-
-    document.getElementById('restadefensa').addEventListener('click', function () {
-        if (phabilidadTotal > 0 && defensaTotal > 0) {
-            defensaTotal -= 1 || 0;
-            phabilidadTotal += 1 || 0;
-            console.log(defensaTotal);
-        } else {
-            alert("No tienes suficientes punto de habilidad para comprar esto.")
+    };
+    document.getElementById('restadefensa').onclick = () => {
+        if (defensaTotal > 0) {
+            defensaTotal--;
+            phabilidadTotal++;
+            actualizarBotones();
         }
-    })
+    };
+    actualizarBotones();
 }
-
 
 // MARKET
 document.getElementById('ir_market').addEventListener('click', function () {
@@ -138,13 +129,6 @@ document.getElementById('ir_market').addEventListener('click', function () {
     function capitalizarPrimeraLetra(nombreJugador) {
         return nombreJugador.charAt(0).toUpperCase() + nombreJugador.slice(1);
     }
-
-    // const regex = /^[A-Za-z0-9_-]{3,20}$/;
-
-    // if (!regex.test(inputNombre)) {
-    //     alert('Nombre de usuario no válido');
-    //     location.reload();
-    // }
 
     if (!inputNombre.checkValidity()) {
         inputNombre.reportValidity();
@@ -184,6 +168,7 @@ document.getElementById('ir_market').addEventListener('click', function () {
         obj.precioConDescuento = precioFinal;
 
         const itemDiv = document.createElement('div');
+
         itemDiv.innerHTML = `
         ${obj.mostrarInfo()}
         <h2><strong>Rareza:</strong> <span>${obj.rarezaMarket}</span></h2>
@@ -298,21 +283,25 @@ document.getElementById('comprar').addEventListener('click', function () {
 function mostrarJugador() {
     showScene('player');
 
-    let ataqueTotal = jugador.ataque;
-    let defensaTotal = jugador.defensa;
-    let vidaTotal = jugador.vida;
+    let ataqueCalc = jugador.ataque;
+    let defensaCalc = jugador.defensa;
+    let vidaCalc = jugador.vida;
 
     objetosComprados.forEach(obj => {
-        ataqueTotal += obj.bonus.ataque || 0;
-        defensaTotal += obj.bonus.defensa || 0;
-        vidaTotal += obj.bonus.vida || 0;
+        ataqueCalc += obj.bonus.ataque || 0;
+        defensaCalc += obj.bonus.defensa || 0;
+        vidaCalc += obj.bonus.vida || 0;
     });
+
+    jugador.ataqueFinal = ataqueCalc;
+    jugador.defensaFinal = defensaCalc;
+    jugador.vidaFinal = vidaCalc;
 
     document.getElementById('playerImg').src = imagen;
     document.getElementById('playerNombre').textContent = jugador.nombre;
-    document.getElementById('playerVida').textContent = vidaTotal;
-    document.getElementById('playerAtaque').textContent = ataqueTotal;
-    document.getElementById('playerDefensa').textContent = defensaTotal;
+    document.getElementById('playerVida').textContent = vidaCalc;
+    document.getElementById('playerAtaque').textContent = ataqueCalc;
+    document.getElementById('playerDefensa').textContent = defensaCalc;
     document.getElementById('playerPuntos').textContent = jugador.puntos;
     document.getElementById('playerMonedas').textContent = jugador.dinero;
 
@@ -332,7 +321,7 @@ function mostrarJugador() {
 
 //VER A LOS ENEMIGOS 
 /**
- * Muestra la pantalla de información de los enemigos (Minotauro y Dragón).
+ * Muestra la pantalla de información de los enemigos (Caballero y Boss).
  * Rellena los datos estáticos definidos en las instancias globales.
  */
 document.getElementById('verALosEnemigos').addEventListener('click', function () {
@@ -342,14 +331,14 @@ document.getElementById('verALosEnemigos').addEventListener('click', function ()
 function verEnemigos() {
     showScene('verEnemigo');
 
-    document.getElementById('prevNombreEnemigo').textContent = minotauro.nombre;
-    document.getElementById('prevVidaEnemigo').textContent = minotauro.vida;
-    document.getElementById('prevAtaqueEnemigo').textContent = minotauro.ataque;
+    document.getElementById('prevNombreEnemigo').textContent = caballero.nombre;
+    document.getElementById('prevVidaEnemigo').textContent = caballero.vida;
+    document.getElementById('prevAtaqueEnemigo').textContent = caballero.ataque;
 
     // Rellenamos los datos del Jefe en el HTML
-    document.getElementById('prevNombreJefe').textContent = dragon.nombre;
-    document.getElementById('prevVidaJefe').textContent = dragon.vida;
-    document.getElementById('prevAtaqueJefe').textContent = dragon.ataque;
+    document.getElementById('prevNombreJefe').textContent = boss.nombre;
+    document.getElementById('prevVidaJefe').textContent = boss.vida;
+    document.getElementById('prevAtaqueJefe').textContent = boss.ataque;
 }
 
 //BATALLA ENEMIGO
@@ -360,14 +349,14 @@ document.getElementById('empezar').addEventListener('click', function () {
 });
 
 /**
- * Inicia la batalla contra el enemigo estándar (Minotauro).
+ * Inicia la batalla contra el enemigo estándar (Caballero).
  * Aplica animaciones CSS de entrada y ejecuta la lógica del combate.
  */
 function mostrarBatalla() {
     showScene('enemigo');
 
     document.getElementById('playerImagen').src = imagen;
-    document.getElementById('enemigoImagen').src = "IMG/minotauro.webp";
+    document.getElementById('enemigoImagen').src = "IMG/caballero.png";
 
     const p = document.getElementById('playerImagen');
     const e = document.getElementById('enemigoImagen');
@@ -375,7 +364,7 @@ function mostrarBatalla() {
     p.style.animation = 'entrarJugador 0.8s forwards'; // Mantener en posicion final
     e.style.animation = 'entrarEnemigo 0.8s forwards';
 
-    const resultadoHTML = batalla(jugador, minotauro);
+    const resultadoHTML = batalla(jugador, caballero);
     const logicaBatallaDiv = document.getElementById('logicaBatalla');
     logicaBatallaDiv.innerHTML = resultadoHTML;
 
@@ -401,7 +390,7 @@ function mostrarBatallaJefe() {
     p.style.animation = 'entrarJugador 0.8s forwards';
     j.style.animation = 'entrarJefe 0.8s forwards';
 
-    const resultadoHTML = batallaJefe(jugador, dragon);
+    const resultadoHTML = batallaJefe(jugador, boss);
     const logicaBatallaDiv = document.getElementById('logicaBatallaJefe');
     logicaBatallaDiv.innerHTML = resultadoHTML;
     localStorage.setItem('playerNombre', jugador.nombre);
@@ -436,3 +425,25 @@ function mostrarFinal() {
     showScene('ranking');
     mostrarRanking(jugador);
 }
+
+document.getElementById('ir_final').addEventListener('click', () => {
+    showScene('rankingVerificacion');
+
+    const nombre = localStorage.getItem('playerNombre') || jugador.nombre;
+    const puntos = localStorage.getItem('playerPuntos') || jugador.puntos;
+    const monedas = localStorage.getItem('playerMonedas') || jugador.dinero;
+
+    document.getElementById('tablaNombre').textContent = nombre;
+    document.getElementById('tablaPuntos').textContent = puntos;
+    document.getElementById('tablaMonedas').textContent = monedas;
+});
+
+const monedero = document.getElementById('monederoImagen');
+monedero.style.animation = 'entrarMonedero 0.8s forwards';
+
+const moneda1 = document.getElementById('moneda1');
+moneda1.style.animation = 'bajarMoneda 5s linear forwards';
+const moneda2 = document.getElementById('moneda2');
+moneda2.style.animation = 'bajarMoneda 5s linear forwards';
+const moneda3 = document.getElementById('moneda3');
+moneda3.style.animation = 'bajarMoneda 5s linear forwards';

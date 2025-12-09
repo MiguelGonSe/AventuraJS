@@ -18,12 +18,18 @@
 <body>
     <main>
         <h1 id="titulo">AVENTURA EN EL REINO DE JS</h1>
+        <div id="monedas-container">
+            <img src="IMG/moneda.png" id="moneda1" alt="Moneda" width="100px">
+            <img src="IMG/moneda.png" id="moneda2" alt="Moneda" width="100px">
+            <img src="IMG/moneda.png" id="moneda3" alt="Moneda" width="100px">
+        </div>
+
 
         <div id="choose_player" class="scene active">
             <h2>¡Elige tu personaje!</h2>
-            <button id="botonElfo" class="eleccion"><img src="IMG/legolas.webp" alt="Elfo"><br>Elegir</button>
-            <button id="botonGuerrero" class="eleccion"><img src="IMG/guerrero.png" alt="Guerrero"><br>Elegir</button>
+            <button id="botonTroll" class="eleccion"><img src="IMG/troll.png" alt="Troll"><br>Elegir</button>
             <button id="botonOrco" class="eleccion"><img src="IMG/orco.png" alt="Orco"><br>Elegir</button>
+            <button id="botonFantasma" class="eleccion"><img src="IMG/fantasma.png" alt="Fantasma"><br>Elegir</button>
         </div>
 
         <div id="look_stats" class="scene">
@@ -31,8 +37,9 @@
             <img id="chosenImgStats" src="" alt="Personaje elegido" width="12rem">
 
             <label for="nombre">Elige tu nombre:</label>
-            <input type="text" id="nombre" name="nombre" pattern="^^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{3,20}$"
-                title="Entre 3 y 20 caracteres, letras y espacios. No se pueden espacios en blanco" maxlength="20" required>
+            <input type="text" id="nombre" name="nombre" pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{3,20}$"
+                title="Entre 3 y 20 caracteres, letras y espacios. No se pueden espacios en blanco" maxlength="20"
+                required>
 
             <p>Vida: <span id="vida"></span><button id="sumaVida">+</button> <button id="restaVida">-</button></p>
             <p>Ataque: <span id="ataque"></span> <button id="sumaAtaque">+</button> <button id="restaAtaque">-</button>
@@ -84,7 +91,7 @@
 
             <div id="rivales-container">
                 <div class="rival-card">
-                    <img src="IMG/minotauro.webp" alt="Minotauro">
+                    <img src="IMG/caballero.png" alt="Caballero">
                     <h3><span id="prevNombreEnemigo"></span></h3>
                     <p>❤️ Vida: <span id="prevVidaEnemigo"></span></p>
                     <p>⚔️ Ataque: <span id="prevAtaqueEnemigo"></span></p>
@@ -92,7 +99,7 @@
                 </div>
 
                 <div class="rival-card">
-                    <img src="IMG/dragon.png" alt="Dragon">
+                    <img src="IMG/boss.png" alt="Dragon">
                     <h3><span id="prevNombreJefe"></span></h3>
                     <p>❤️ Vida: <span id="prevVidaJefe"></span></p>
                     <p>⚔️ Ataque: <span id="prevAtaqueJefe"></span></p>
@@ -110,7 +117,7 @@
             <div id="pantallaBatalla">
                 <img id="playerImagen" src="" alt="Jugador" width="12rem">
                 <div id="logicaBatalla"></div>
-                <img id="enemigoImagen" src="IMG/minotauro.webp" alt="Enemigo" width="12rem">
+                <img id="enemigoImagen" src="IMG/caballero.png" alt="Enemigo" width="12rem">
             </div>
             <button id="finEnemigo">Fin</button>
         </div>
@@ -122,7 +129,7 @@
             <div id="pantallaBatalla">
                 <img id="playerJugadorImagen" src="" alt="Jugador" width="12rem">
                 <div id="logicaBatallaJefe"></div>
-                <img id="jefeImagen" src="IMG/dragon.png" alt="Jefe" width="12rem">
+                <img id="jefeImagen" src="IMG/boss.png" alt="Jefe" width="12rem">
 
             </div>
             <button id="fin">Fin</button>
@@ -131,11 +138,42 @@
         <div id="ranking" class="scene">
             <div id="ranking_final"></div>
             <button id="verRanking">Ver ranking</button>
+            <button id="ir_final">Ir al ranking global</button>
+        </div>
+
+        <div id="rankingVerificacion" class="scene">
+
+            <div id="table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th> Nombre: </th>
+                            <th id="tablaNombre"> Miguel </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td> Monedas: </td>
+                            <td id="tablaMonedas"> 4000 </td>
+                        </tr>
+                        <tr>
+                            <td> Puntos: </td>
+                            <td id="tablaPuntos"> 0 </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <button id="volver_inicio">Volver</button>
         </div>
 
     </main>
 
+
+    <div id="contenedor-monedero">
+        <img id="monederoImagen" src="IMG/monedero.png" alt="Monedero">
+        <span class="numero-superpuesto">500</span>
+    </div>
     <footer id="footer">
         © 2025 AVENTURA EN JS - Todos los derechos reservados
     </footer>

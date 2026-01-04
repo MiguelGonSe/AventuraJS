@@ -2,7 +2,6 @@
  * @fileoverview Script principal que orquesta la lógica del juego.
  * Maneja la navegación entre "escenas", la selección de personajes,
  * el sistema de mercado (compra/venta), y la ejecución de batallas.
- * * Integra animaciones con GSAP y ScrollTrigger.
  */
 
 import { Personaje } from './Modules/Personaje.js';
@@ -12,31 +11,45 @@ import { objetos } from './Modules/Mercado.js';
 import { batallaJefe, batalla, mostrarRanking } from './Modules/Ranking.js';
 import { showScene, formatearDinero } from './Utils/Utils.js';
 
-gsap.registerPlugin(ScrollTrigger);
-
 let jugador;
 let imagen = "";
 const comprado = new Map();
 const objetosComprados = [];
-const caballero = new Enemigo('Caballero', 5, 5, 35);
-const boss = new Jefe('Boss', 20, 20, 100, 'Fuego Letal');
+const barbanegra = new Enemigo('Barbanegra', 5, 5, 35);
+const imu = new Jefe('Imu', 20, 20, 100, 'Fuego Letal');
+
+function actualizarMonederoVisual() {
+    // Busca el span del footer
+    const footerDinero = document.getElementById('dinero-footer');
+    
+    // Si el jugador existe, actualizamos el texto
+    if (jugador && footerDinero) {
+        footerDinero.textContent = jugador.dinero; // O usa formatearDinero(jugador.dinero) si prefieres la K
+        
+        // Efecto visual de parpadeo cuando cambia el dinero
+        const monederoImg = document.getElementById('monederoImagen');
+        monederoImg.style.transform = "scale(1.3)";
+        setTimeout(() => monederoImg.style.transform = "scale(1)", 200);
+    }
+}
+
 
 // ELECCIÓN DE JUGADOR
-document.getElementById('botonTroll').addEventListener('click', function () {
+document.getElementById('botonLuffy').addEventListener('click', function () {
     jugador = new Personaje(0, 0, 0, 100, 10);
-    imagen = 'IMG/troll.png';
+    imagen = 'IMG/Luffy.webp';
     mostrarStats(imagen);
 });
 
-document.getElementById('botonOrco').addEventListener('click', function () {
+document.getElementById('botonAce').addEventListener('click', function () {
     jugador = new Personaje(0, 0, 0, 100, 10);
-    imagen = 'IMG/orco.png';
+    imagen = 'IMG/Ace.webp';
     mostrarStats(imagen);
 });
 
-document.getElementById('botonFantasma').addEventListener('click', function () {
+document.getElementById('botonSabo').addEventListener('click', function () {
     jugador = new Personaje(0, 0, 0, 100, 10);
-    imagen = 'IMG/fantasma.png';
+    imagen = 'IMG/Sabo.webp';
     mostrarStats(imagen);
 });
 
@@ -70,6 +83,8 @@ function mostrarStats(imagen) {
         jugador.ataque = ataqueTotal;
         jugador.defensa = defensaTotal;
         jugador.phabilidad = phabilidadTotal;
+
+        actualizarMonederoVisual();
     };
 
     document.getElementById('sumaVida').onclick = () => {
@@ -196,6 +211,7 @@ document.getElementById('ir_market').addEventListener('click', function () {
             if (jugador.dinero >= obj.precioConDescuento) {
                 jugador.dinero -= obj.precioConDescuento;
                 document.getElementById('monedasMarket').textContent = jugador.dinero;
+                actualizarMonederoVisual();
 
                 const purchasedItem = document.createElement('div');
                 purchasedItem.innerHTML = obj.mostrarInfo();
@@ -225,6 +241,7 @@ document.getElementById('ir_market').addEventListener('click', function () {
 
             jugador.dinero += obj.precioConDescuento;
             document.getElementById('monedasMarket').textContent = jugador.dinero;
+            actualizarMonederoVisual();
 
             comprado.delete(index);
             itemDiv.style.backgroundColor = '';
@@ -238,20 +255,6 @@ document.getElementById('ir_market').addEventListener('click', function () {
         marketItemsDiv.appendChild(itemDiv);
     });
 
-    gsap.to("#marketItems > div", { //Selecciona los div dentro de marketItems
-        scrollTrigger: {
-            trigger: "#look_market",
-            start: "top 20%",
-            end: "bottom bottom",
-            scrub: 1,
-            markers: false
-        },
-        opacity: 1,
-        y: 0,
-        duration: 1.5,
-        ease: "bounce.out",
-        stagger: 0.18
-    });
 });
 
 /**
@@ -317,11 +320,12 @@ function mostrarJugador() {
         div.innerHTML = obj.mostrarInfo();
         equipDiv.appendChild(div);
     });
+    actualizarMonederoVisual();
 }
 
 //VER A LOS ENEMIGOS 
 /**
- * Muestra la pantalla de información de los enemigos (Caballero y Boss).
+ * Muestra la pantalla de información de los enemigos (Barbanegra y Imu).
  * Rellena los datos estáticos definidos en las instancias globales.
  */
 document.getElementById('verALosEnemigos').addEventListener('click', function () {
@@ -331,14 +335,14 @@ document.getElementById('verALosEnemigos').addEventListener('click', function ()
 function verEnemigos() {
     showScene('verEnemigo');
 
-    document.getElementById('prevNombreEnemigo').textContent = caballero.nombre;
-    document.getElementById('prevVidaEnemigo').textContent = caballero.vida;
-    document.getElementById('prevAtaqueEnemigo').textContent = caballero.ataque;
+    document.getElementById('prevNombreEnemigo').textContent = barbanegra.nombre;
+    document.getElementById('prevVidaEnemigo').textContent = barbanegra.vida;
+    document.getElementById('prevAtaqueEnemigo').textContent = barbanegra.ataque;
 
     // Rellenamos los datos del Jefe en el HTML
-    document.getElementById('prevNombreJefe').textContent = boss.nombre;
-    document.getElementById('prevVidaJefe').textContent = boss.vida;
-    document.getElementById('prevAtaqueJefe').textContent = boss.ataque;
+    document.getElementById('prevNombreJefe').textContent = imu.nombre;
+    document.getElementById('prevVidaJefe').textContent = imu.vida;
+    document.getElementById('prevAtaqueJefe').textContent = imu.ataque;
 }
 
 //BATALLA ENEMIGO
@@ -349,14 +353,14 @@ document.getElementById('empezar').addEventListener('click', function () {
 });
 
 /**
- * Inicia la batalla contra el enemigo estándar (Caballero).
+ * Inicia la batalla contra el enemigo estándar (Barbanegra).
  * Aplica animaciones CSS de entrada y ejecuta la lógica del combate.
  */
 function mostrarBatalla() {
     showScene('enemigo');
 
     document.getElementById('playerImagen').src = imagen;
-    document.getElementById('enemigoImagen').src = "IMG/caballero.png";
+    document.getElementById('enemigoImagen').src = "IMG/Barbanegra.webp";
 
     const p = document.getElementById('playerImagen');
     const e = document.getElementById('enemigoImagen');
@@ -364,7 +368,7 @@ function mostrarBatalla() {
     p.style.animation = 'entrarJugador 0.8s forwards'; // Mantener en posicion final
     e.style.animation = 'entrarEnemigo 0.8s forwards';
 
-    const resultadoHTML = batalla(jugador, caballero);
+    const resultadoHTML = batalla(jugador, barbanegra);
     const logicaBatallaDiv = document.getElementById('logicaBatalla');
     logicaBatallaDiv.innerHTML = resultadoHTML;
 
@@ -390,7 +394,7 @@ function mostrarBatallaJefe() {
     p.style.animation = 'entrarJugador 0.8s forwards';
     j.style.animation = 'entrarJefe 0.8s forwards';
 
-    const resultadoHTML = batallaJefe(jugador, boss);
+    const resultadoHTML = batallaJefe(jugador, imu);
     const logicaBatallaDiv = document.getElementById('logicaBatallaJefe');
     logicaBatallaDiv.innerHTML = resultadoHTML;
     localStorage.setItem('playerNombre', jugador.nombre);
@@ -441,9 +445,9 @@ document.getElementById('ir_final').addEventListener('click', () => {
 const monedero = document.getElementById('monederoImagen');
 monedero.style.animation = 'entrarMonedero 0.8s forwards';
 
-const moneda1 = document.getElementById('moneda1');
-moneda1.style.animation = 'bajarMoneda 5s linear forwards';
-const moneda2 = document.getElementById('moneda2');
-moneda2.style.animation = 'bajarMoneda 5s linear forwards';
-const moneda3 = document.getElementById('moneda3');
-moneda3.style.animation = 'bajarMoneda 5s linear forwards';
+// const moneda1 = document.getElementById('moneda1');
+// moneda1.style.animation = 'bajarMoneda 5s linear forwards';
+// const moneda2 = document.getElementById('moneda2');
+// moneda2.style.animation = 'bajarMoneda 5s linear forwards';
+// const moneda3 = document.getElementById('moneda3');
+// moneda3.style.animation = 'bajarMoneda 5s linear forwards';

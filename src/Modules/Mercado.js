@@ -6,21 +6,21 @@ import { Objeto } from './Objeto.js';
  * @type {Objeto[]}
  */
 export const objetos = [
-    new Objeto("Espada Carmesí", 12500, "Épica", "Arma", { ataque: 28, vida: 15 }),
-    new Objeto("Hacha del Trueno", 14000, "Legendaria", "Arma", { ataque: 45, defensa: 10 }),
-    new Objeto("Látigo Sombrío", 8000, "Rara", "Arma", { ataque: 30, vida: 20 }),
-    new Objeto("Katana Celestial", 16000, "Legendaria", "Arma", { ataque: 40, vida: 25 }),
-    new Objeto("Martillo del Gigante", 11500, "Épica", "Arma", { ataque: 33, defensa: 15 }),
-    new Objeto("Muro de Hierro", 9000, "Rara", "Armadura", { defensa: 45, vida: 20 }),
-    new Objeto("Escudo del León", 10000, "Épica", "Armadura", { defensa: 50, vida: 25 }),
-    new Objeto("Placas de Acero", 7500, "Común", "Armadura", { defensa: 35, vida: 30 }),
-    new Objeto("Casco del Centinela", 6000, "Común", "Armadura", { defensa: 20, vida: 10 }),
-    new Objeto("Guanteletes de Diamante", 13000, "Legendaria", "Armadura", { defensa: 55, vida: 35 }),
-    new Objeto("Anillo del Eclipse", 9500, "Rara", "Accesorio", { ataque: 10, defensa: 10, vida: 20 }),
-    new Objeto("Colgante del Viento", 7000, "Común", "Accesorio", { vida: 15, defensa: 5 }),
-    new Objeto("Amuleto del Guardián", 12000, "Épica", "Accesorio", { defensa: 25, vida: 40 }),
-    new Objeto("Talisman de Sangre", 8500, "Rara", "Accesorio", { ataque: 15, vida: 25 }),
-    new Objeto("Brazalete del Sabio", 11000, "Épica", "Accesorio", { defensa: 15, vida: 35 })
+    new Objeto("Zoro", 12500, "Épica", "Arma", { ataque: 28, vida: 15 }),
+    new Objeto("Shanks", 14000, "Legendaria", "Arma", { ataque: 45, defensa: 10 }),
+    new Objeto("Dracule Mihawk", 8000, "Rara", "Arma", { ataque: 30, vida: 20 }),
+    new Objeto("Edward Newgate", 16000, "Legendaria", "Arma", { ataque: 40, vida: 25 }),
+    new Objeto("Brook", 11500, "Épica", "Arma", { ataque: 33, defensa: 15 }),
+    new Objeto("Marco", 9000, "Legendaria", "Armadura", { defensa: 45, vida: 20 }),
+    new Objeto("Sanji", 10000, "Épica", "Armadura", { defensa: 50, vida: 25 }),
+    new Objeto("Charlotte Linlin", 7500, "Común", "Armadura", { defensa: 35, vida: 30 }),
+    new Objeto("Franky", 6000, "Común", "Armadura", { defensa: 20, vida: 10 }),
+    new Objeto("Kaido", 13000, "Legendaria", "Armadura", { defensa: 55, vida: 35 }),
+    new Objeto("Nami", 9500, "Rara", "Accesorio", { ataque: 10, defensa: 10, vida: 20 }),
+    new Objeto("Trafalgar Law", 7000, "Común", "Accesorio", { vida: 15, defensa: 5 }),
+    new Objeto("Charlotte Katakuri", 12000, "Épica", "Accesorio", { defensa: 25, vida: 40 }),
+    new Objeto("Jimbe", 8500, "Rara", "Accesorio", { ataque: 15, vida: 25 }),
+    new Objeto("Boa Hancock", 11000, "Épica", "Accesorio", { defensa: 15, vida: 35 })
 ];
 
 /**

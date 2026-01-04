@@ -68,38 +68,38 @@ export class Objeto {
          */
 
     getImagen() {
-        if (this.tipo === 'Arma' && this.nombre === 'Espada Carmesí') {
-            return "./IMG/espadaCarmesi.webp";
-        } else if (this.tipo === 'Arma' && this.nombre === 'Hacha del Trueno') {
-            return "./IMG/hachaTrueno.png";
-        } else if (this.tipo === 'Arma' && this.nombre === 'Látigo Sombrío') {
-            return "./IMG/latigoSombrio.webp";
-        } else if (this.tipo === 'Arma' && this.nombre === 'Katana Celestial') {
-            return "./IMG/katanaCelestial.png";
-        } else if (this.tipo === 'Arma' && this.nombre === 'Martillo del Gigante') {
-            return "./IMG/martilloGigante.webp";
-        } else if (this.tipo === 'Armadura' && this.nombre === 'Muro de Hierro') {
-            return "./IMG/muroHierro.png";
-        } else if (this.tipo === 'Armadura' && this.nombre === 'Escudo del León') {
-            return "./IMG/escudoLeon.png";
-        } else if (this.tipo === 'Armadura' && this.nombre === 'Placas de Acero') {
-            return "./IMG/placaAcero.png";
-        } else if (this.tipo === 'Armadura' && this.nombre === 'Casco del Centinela') {
-            return "./IMG/cascoCentinela.png";
-        } else if (this.tipo === 'Armadura' && this.nombre === 'Guanteletes de Diamante') {
-            return "./IMG/guantesDiamante.webp";
-        } else if (this.tipo === 'Accesorio' && this.nombre === 'Anillo del Eclipse') {
-            return "./IMG/anilloEclipse.png";
-        } else if (this.tipo === 'Accesorio' && this.nombre === 'Colgante del Viento') {
-            return "./IMG/colganteViento.png";
-        } else if (this.tipo === 'Accesorio' && this.nombre === 'Amuleto del Guardián') {
-            return "./IMG/amuletoGuardian.png";
-        } else if (this.tipo === 'Accesorio' && this.nombre === 'Talisman de Sangre') {
-            return "./IMG/talismanSangre.png";
-        } else if (this.tipo === 'Accesorio' && this.nombre === 'Brazalete del Sabio') {
-            return "./IMG/brazaleteSabio.webp";
+        if (this.tipo === 'Arma' && this.nombre === 'Zoro') {
+            return "./IMG/Zoro.png";
+        } else if (this.tipo === 'Arma' && this.nombre === 'Shanks') {
+            return "./IMG/Shanks.png";
+        } else if (this.tipo === 'Arma' && this.nombre === 'Dracule Mihawk') {
+            return "./IMG/Mihwak.webp";
+        } else if (this.tipo === 'Arma' && this.nombre === 'Edward Newgate') {
+            return "./IMG/Barbablanca.png";
+        } else if (this.tipo === 'Arma' && this.nombre === 'Brook') {
+            return "./IMG/Brook.png";
+        } else if (this.tipo === 'Armadura' && this.nombre === 'Marco') {
+            return "./IMG/Marco.png";
+        } else if (this.tipo === 'Armadura' && this.nombre === 'Sanji') {
+            return "./IMG/Sanji.png";
+        } else if (this.tipo === 'Armadura' && this.nombre === 'Charlotte Linlin') {
+            return "./IMG/Bigmom.png";
+        } else if (this.tipo === 'Armadura' && this.nombre === 'Franky') {
+            return "./IMG/Franki.png";
+        } else if (this.tipo === 'Armadura' && this.nombre === 'Kaido') {
+            return "./IMG/Kaido.png";
+        } else if (this.tipo === 'Accesorio' && this.nombre === 'Nami') {
+            return "./IMG/Nami.png";
+        } else if (this.tipo === 'Accesorio' && this.nombre === 'Trafalgar Law') {
+            return "./IMG/Law.png";
+        } else if (this.tipo === 'Accesorio' && this.nombre === 'Charlotte Katakuri') {
+            return "./IMG/Katakuri.png";
+        } else if (this.tipo === 'Accesorio' && this.nombre === 'Jimbe') {
+            return "./IMG/Jimbe.png";
+        } else if (this.tipo === 'Accesorio' && this.nombre === 'Boa Hancock') {
+            return "./IMG/Boa.png";
         } else {
-            return "./IMG/pocion.png";
+            return "./IMG/Marco.png";
         }
     }
 

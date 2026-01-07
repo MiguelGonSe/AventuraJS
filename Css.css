@@ -116,7 +116,6 @@
     background-color: var(--color-bg-dark);
     color: var(--color-text);
     text-align: center;
-    margin-bottom: 20px;
 }
 
 #look_stats button {
@@ -136,6 +135,25 @@
     color: var(--color-bg-dark);
     transform: scale(1.1);
     box-shadow: var(--neon-shadow);
+}
+
+#nombreContainer {
+    margin-bottom: 10px;
+}
+
+#defensaContainer,
+#ataqueContainer,
+#vidaContainer,
+#nombreContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    span {
+        color: var(--color-primary);
+        margin-left: 10px;
+        margin-right: 10px;
+    }
 }
 
 /* TERCERA PANTALLA */
@@ -690,6 +708,82 @@
     box-shadow: 0 0 10px var(--neon-shadow);
 }
 
+/* --- ESTILOS DEL RANKING GLOBAL --- */
+
+#rankingVerificacion h2 {
+    font-family: var(--font-pixel);
+    color: var(--color-secondary);
+    text-shadow: var(--neon-shadow);
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+/* Contenedor que define el tamaño visible y permite el scroll */
+.table-scroll-container {
+    max-height: 300px;
+    /* Altura máxima antes de que aparezca el scroll */
+    overflow-y: auto;
+    /* Activa el scroll vertical */
+    width: 90%;
+    max-width: 600px;
+    margin: 0 auto 20px auto;
+    border: 4px solid var(--color-secondary);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+
+    /* Personalización de la barra de scroll */
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-secondary) var(--color-bg-dark);
+}
+
+/* Estilos base de la tabla */
+#tablaRankingGlobal {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-pixel);
+    font-size: 12px;
+    background-color: var(--color-bg-dark);
+}
+
+/* Cabecera Fija */
+#tablaRankingGlobal thead th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: var(--color-secondary);
+    color: var(--color-bg-dark);
+    padding: 15px;
+    text-transform: uppercase;
+    border-bottom: 3px solid var(--color-bg-dark);
+}
+
+#tablaRankingGlobal td {
+    padding: 12px 10px;
+    text-align: center;
+    color: var(--color-text);
+    border-right: 1px solid #444;
+}
+
+/* Filas Pares e Impares  */
+#tablaRankingGlobal tbody tr:nth-child(odd) {
+    background-color: #222;
+}
+
+#tablaRankingGlobal tbody tr:nth-child(even) {
+    background-color: #333;
+}
+
+#tablaRankingGlobal tbody tr:hover {
+    background-color: rgba(255, 162, 0, 0.3);
+    cursor: default;
+}
+
+/* Destacar la primera columna  */
+#tablaRankingGlobal td:first-child {
+    color: var(--color-primary);
+    font-weight: bold;
+}
+
 /* BATALLA CONJUNTA  */
 
 #pantallaBatalla {
@@ -771,40 +865,80 @@
     }
 }
 
+main {
+    height: 70vh;
+    width: 100%;
+    position: relative;
+
+    /* Si el contenido es más grande, aparece scroll SOLO aquí */
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* Evitamos scroll lateral indeseado */
+
+    /* Alineación del contenido */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    flex-grow: 1;
+    /* Asegura que ocupe todo el espacio disponible */
+}
+
 main>div {
-    height: 100%;
+    width: 100%;
+    display: flex;
+    /* Para poder centrar cosas dentro si quieres */
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; <--- Activa esto solo si quieres centrar verticalmente pantallas con poco contenido */
 }
 
 header {
+    height: 20vh;
+    width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    /* Evita que se encoja */
+    background-color: transparent;
+    /* O el color que quieras */
 }
 
 body {
-    min-height: 100vh;
+    height: 100vh;
+    /* Altura EXACTA de la pantalla, ni más ni menos */
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #e2f6fc;
+
+    /* Layout Flexible Vertical */
     display: flex;
     flex-direction: column;
-    margin: 0;
-    background-color: #e2f6fc;
+
+    /* IMPORTANTE: Evita scroll en la página general */
+    overflow: hidden;
 }
 
 #footer {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 10px; /* Letra un poco más pequeña */
-    color: var(--color-primary);
-    background-color: var(--color-bg-dark);
-    padding: 10px 20px;
-    border-top: 4px solid var(--color-secondary);
+    height: 10vh;
     width: 100%;
-    margin-top: auto;
-    box-sizing: border-box; /* Para que el padding no rompa el ancho */
-    
-    /* Flexbox para alinear texto a la izq y monedero a la derecha */
+    box-sizing: border-box;
+    /* Para que el borde y padding no sumen tamaño extra */
+
+    background-color: var(--color-bg-dark);
+    color: var(--color-primary);
+    border-top: 4px solid var(--color-secondary);
+    padding: 0 20px;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
-    bottom: 0;
-    left: 0;
+
+    flex-shrink: 0;
+    /* Evita que se encoja */
+    margin-top: 0;
     z-index: 100;
 }
 
@@ -822,7 +956,8 @@ body {
     align-items: center;
     justify-content: center;
     width: fit-content;
-    margin: 0; /* Quitamos márgenes viejos */
+    margin: 0;
+    /* Quitamos márgenes viejos */
 }
 
 #monederoImagen {
@@ -833,12 +968,14 @@ body {
 
 .numero-superpuesto {
     position: absolute;
-    top: 55%; /* Ajuste fino para centrar verticalmente */
+    top: 55%;
+    /* Ajuste fino para centrar verticalmente */
     left: 50%;
     transform: translate(-50%, -50%);
     color: #fff;
     font-family: var(--font-pixel);
-    font-size: 10px; /* Tamaño acorde a la imagen */
+    font-size: 10px;
+    /* Tamaño acorde a la imagen */
     font-weight: bold;
     text-shadow: 2px 2px 0px #000;
     z-index: 10;
@@ -865,7 +1002,7 @@ body {
     }
 
     100% {
-        transform: translateY(200px) rotateY(1440deg); 
+        transform: translateY(200px) rotateY(1440deg);
         opacity: 0;
     }
 }

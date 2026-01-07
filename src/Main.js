@@ -15,17 +15,18 @@ let jugador;
 let imagen = "";
 const comprado = new Map();
 const objetosComprados = [];
-const barbanegra = new Enemigo('Barbanegra', 5, 5, 35);
-const imu = new Jefe('Imu', 20, 20, 100, 'Fuego Letal');
+const barbanegra = new Enemigo('Barbanegra', 25, 25, 150);
+const sakazuki = new Enemigo('Sakazuki', 35, 35, 175);
+const imu = new Jefe('Imu', 50, 50, 220, 'Fuego Letal');
 
 function actualizarMonederoVisual() {
     // Busca el span del footer
     const footerDinero = document.getElementById('dinero-footer');
-    
+
     // Si el jugador existe, actualizamos el texto
     if (jugador && footerDinero) {
         footerDinero.textContent = jugador.dinero; // O usa formatearDinero(jugador.dinero) si prefieres la K
-        
+
         // Efecto visual de parpadeo cuando cambia el dinero
         const monederoImg = document.getElementById('monederoImagen');
         monederoImg.style.transform = "scale(1.3)";
@@ -137,27 +138,27 @@ function mostrarStats(imagen) {
 document.getElementById('ir_market').addEventListener('click', function () {
 
     const inputNombre = document.getElementById('nombre');
-    jugador.nombre = inputNombre.value;
+    const valorNombre = inputNombre.value.trim(); // Quitamos espacios sobrantes
 
-    const nombreJugador = inputNombre.value.trim() || jugador.nombre;
+    const regexValidacion = /^[A-ZÁÉÍÓÚÑ][a-zA-ZÁÉÍÓÚáéíóúÑñ\s]{2,19}$/;
 
-    function capitalizarPrimeraLetra(nombreJugador) {
-        return nombreJugador.charAt(0).toUpperCase() + nombreJugador.slice(1);
-    }
-
-    if (!inputNombre.checkValidity()) {
-        inputNombre.reportValidity();
+    // 1. Validar que no esté vacío
+    if (!valorNombre) {
+        alert('Por favor, ingresa un nombre.');
         return;
     }
 
-    if (inputNombre.value.trim().length < 2) {
-        alert('Nombre de usuario no válido');
-        location.reload();
+    // 2. Validar contra la expresión regular
+    if (!regexValidacion.test(valorNombre)) {
+        alert('Error: El nombre debe comenzar con mayúscula, tener entre 3 y 20 caracteres y solo contener letras/espacios.');
+        inputNombre.focus();
+        return;
     }
 
-    const monedasJugador = jugador.dinero;
+    jugador.nombre = valorNombre;
 
-    mostrarMarket(imagen, capitalizarPrimeraLetra(nombreJugador), monedasJugador);
+    const monedasJugador = jugador.dinero;
+    mostrarMarket(imagen, jugador.nombre, monedasJugador);
 
     const marketItemsDiv = document.getElementById('marketItems');
     marketItemsDiv.textContent = "";
@@ -335,9 +336,13 @@ document.getElementById('verALosEnemigos').addEventListener('click', function ()
 function verEnemigos() {
     showScene('verEnemigo');
 
-    document.getElementById('prevNombreEnemigo').textContent = barbanegra.nombre;
-    document.getElementById('prevVidaEnemigo').textContent = barbanegra.vida;
-    document.getElementById('prevAtaqueEnemigo').textContent = barbanegra.ataque;
+    document.getElementById('prevNombreEnemigoA').textContent = barbanegra.nombre;
+    document.getElementById('prevVidaEnemigoA').textContent = barbanegra.vida;
+    document.getElementById('prevAtaqueEnemigoA').textContent = barbanegra.ataque;
+
+    document.getElementById('prevNombreEnemigoB').textContent = sakazuki.nombre;
+    document.getElementById('prevVidaEnemigoB').textContent = sakazuki.vida;
+    document.getElementById('prevAtaqueEnemigoB').textContent = sakazuki.ataque;
 
     // Rellenamos los datos del Jefe en el HTML
     document.getElementById('prevNombreJefe').textContent = imu.nombre;
@@ -430,19 +435,53 @@ function mostrarFinal() {
     mostrarRanking(jugador);
 }
 
+// SISTEMA DE RANKING Y FINAL
+
 document.getElementById('ir_final').addEventListener('click', () => {
     showScene('rankingVerificacion');
 
-    const nombre = localStorage.getItem('playerNombre') || jugador.nombre;
-    const puntos = localStorage.getItem('playerPuntos') || jugador.puntos;
-    const monedas = localStorage.getItem('playerMonedas') || jugador.dinero;
+    // 1. Recopilar datos del jugador actual
+    const nuevoRegistro = {
+        nombre: jugador.nombre,
+        puntos: jugador.puntos,
+        monedas: jugador.dinero
+    };
 
-    document.getElementById('tablaNombre').textContent = nombre;
-    document.getElementById('tablaPuntos').textContent = puntos;
-    document.getElementById('tablaMonedas').textContent = monedas;
+    //Obtener el array existente del LocalStorage
+    let rankingGlobal = JSON.parse(localStorage.getItem('aventuraJsRanking')) || [];
+
+    //Añadir al jugador actual al array
+    rankingGlobal.push(nuevoRegistro);
+
+    //Ordenar el array por Puntos (de mayor a menor)
+    rankingGlobal.sort((a, b) => b.puntos - a.puntos);
+
+    //Guardar el array actualizado en LocalStorage
+    localStorage.setItem('aventuraJsRanking', JSON.stringify(rankingGlobal));
+
+    //Pintar la tabla en el HTML
+    const tbody = document.getElementById('rankingBody');
+    tbody.innerHTML = ""; 
+
+    rankingGlobal.forEach((registro, index) => {
+        const fila = document.createElement('tr');
+
+        if (registro.nombre === jugador.nombre && registro.puntos === jugador.puntos) {
+            fila.style.border = "2px solid var(--color-primary)";
+            fila.style.fontWeight = "bold";
+        }
+
+        fila.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${registro.nombre}</td>
+            <td>${registro.puntos}</td>
+            <td>${formatearDinero(registro.monedas)}</td>
+        `;
+        tbody.appendChild(fila);
+    });
 });
 
-const monedero = document.getElementById('monederoImagen');
+const monedero = document.getElementById('contenedor-monedero');
 monedero.style.animation = 'entrarMonedero 0.8s forwards';
 
 // const moneda1 = document.getElementById('moneda1');

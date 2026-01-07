@@ -13,8 +13,10 @@
 </head>
 
 <body>
-    <main>
+    <header>
         <h1 id="titulo">AVENTURA EN EL REINO DE JS</h1>
+    </header>
+    <main>
         <!-- <div id="monedas-container">
             <img src="IMG/moneda.png" id="moneda1" alt="Moneda" width="100px">
             <img src="IMG/moneda.png" id="moneda2" alt="Moneda" width="100px">
@@ -33,16 +35,34 @@
             <br>
             <img id="chosenImgStats" src="" alt="Personaje elegido" width="12rem">
 
-            <label for="nombre">Elige tu nombre:</label>
-            <input type="text" id="nombre" name="nombre" pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{3,20}$"
-                title="Entre 3 y 20 caracteres, letras y espacios. No se pueden espacios en blanco" maxlength="20"
-                required>
+            <div id="nombreContainer">
+                <label for="nombre">Elige tu nombre:</label>
+                <input type="text" id="nombre" name="nombre" pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{3,20}$"
+                    title="Entre 3 y 20 caracteres, letras y espacios. No se pueden espacios en blanco" maxlength="20"
+                    required>
+            </div>
 
-            <p>Vida: <span id="vida"></span><button id="sumaVida">+</button> <button id="restaVida">-</button></p>
-            <p>Ataque: <span id="ataque"></span> <button id="sumaAtaque">+</button> <button id="restaAtaque">-</button>
-            </p>
-            <p>Defensa: <span id="defensa"></span> <button id="sumaDefensa">+</button> <button
-                    id="restadefensa">-</button></p>
+            <div id="vidaContainer">
+                <label>Vida: </label>
+                <span id="vida"></span>
+                <button id="sumaVida">+</button>
+                <button id="restaVida">-</button>
+            </div>
+
+            <div id="ataqueContainer">
+                <label>Ataque: </label>
+                <span id="ataque"></span>
+                <button id="sumaAtaque">+</button>
+                <button id="restaAtaque">-</button>
+            </div>
+
+            <div id="defensaContainer">
+                <label>Defensa: </label>
+                <span id="defensa"></span>
+                <button id="sumaDefensa">+</button>
+                <button id="restadefensa">-</button>
+            </div>
+
             <p>Puntos: <span id="puntos"></span></p>
             <p>Monedas: <span id="dinero"></span></p>
             <p>Puntos Habilidad: <span id="phabilidad"></span></p>
@@ -89,10 +109,18 @@
             <div id="rivales-container">
                 <div class="rival-card">
                     <img src="IMG/Barbanegra.webp" alt="Barbanegra">
-                    <h3><span id="prevNombreEnemigo"></span></h3>
-                    <p>❤️ Vida: <span id="prevVidaEnemigo"></span></p>
-                    <p>⚔️ Ataque: <span id="prevAtaqueEnemigo"></span></p>
-                    <h4>Enemigo Común</h4>
+                    <h3><span id="prevNombreEnemigoA"></span></h3>
+                    <p>❤️ Vida: <span id="prevVidaEnemigoA"></span></p>
+                    <p>⚔️ Ataque: <span id="prevAtaqueEnemigoA"></span></p>
+                    <h4>Enemigo</h4>
+                </div>
+
+                <div class="rival-card">
+                    <img src="IMG/Sakazuki.webp" alt="Sakazuki">
+                    <h3><span id="prevNombreEnemigoB"></span></h3>
+                    <p>❤️ Vida: <span id="prevVidaEnemigoB"></span></p>
+                    <p>⚔️ Ataque: <span id="prevAtaqueEnemigoB"></span></p>
+                    <h4>Enemigo</h4>
                 </div>
 
                 <div class="rival-card">
@@ -139,29 +167,24 @@
         </div>
 
         <div id="rankingVerificacion" class="scene">
+            <h2>🏆 SALÓN DE LA FAMA 🏆</h2>
 
-            <div id="table">
-                <table>
+            <div class="table-scroll-container">
+                <table id="tablaRankingGlobal">
                     <thead>
                         <tr>
-                            <th> Nombre: </th>
-                            <th id="tablaNombre"> Miguel </th>
+                            <th>#</th>
+                            <th>Nombre</th>
+                            <th>Puntos</th>
+                            <th>Monedas</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td> Monedas: </td>
-                            <td id="tablaMonedas"> 4000 </td>
-                        </tr>
-                        <tr>
-                            <td> Puntos: </td>
-                            <td id="tablaPuntos"> 0 </td>
-                        </tr>
+                    <tbody id="rankingBody">
                     </tbody>
                 </table>
             </div>
 
-            <button id="volver_inicio">Volver</button>
+            <button id="volver_inicio">Volver al Inicio</button>
         </div>
 
     </main>

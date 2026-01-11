@@ -48,6 +48,13 @@ export function batalla(jugador, enemigo) {
         jugador.dinero += 5;
         const puntosTotal = jugador.puntos + jugador.dinero + puntosGanados; 
         resultadoHTML += `<h4>🏆 ${jugador.nombre} ha ganado (${puntosTotal} pts, +5 monedas y salud + 100</h4>`;
+        resultadoHTML += `
+            <div class="contenedor-monedas-victoria">
+                <img src="IMG/moneda.png" class="moneda-animada" style="animation-duration: 2;" alt="Moneda">
+                <img src="IMG/moneda.png" class="moneda-animada" style="animation-duration: 2s;" alt="Moneda">
+                <img src="IMG/moneda.png" class="moneda-animada" style="animation-duration: 2s;" alt="Moneda">
+            </div>
+        `;
     } else {
         resultadoHTML += `<h4>💀 ${enemigo.nombre} ha ganado. ¡Has perdido!</h4>`;
     }
@@ -101,6 +108,13 @@ export function batallaJefe(jugador, jefe) {
         jugador.dinero += 10;
         const puntosTotal = jugador.puntos + jugador.dinero + puntosGanados; // Corregido variable local
         resultadoHTML += `<h4>🏆 ${jugador.nombre} ha ganado el juego (${puntosTotal} pts) y ha ganado 10 monedas, ENHORABUENA</h4>`;
+        resultadoHTML += `
+            <div class="contenedor-monedas-victoria">
+                <img src="IMG/moneda.png" class="moneda-animada" style="animation-duration: 2s;" alt="Moneda">
+                <img src="IMG/moneda.png" class="moneda-animada" style="animation-duration: 2s;" alt="Moneda">
+                <img src="IMG/moneda.png" class="moneda-animada" style="animation-duration: 2s;" alt="Moneda">
+            </div>
+        `;
     } else {
         resultadoHTML += `<h4>💀 ${jefe.nombre} ha ganado. ¡Has perdido!</h4>`;
     }

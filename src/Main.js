@@ -484,9 +484,3 @@ document.getElementById('ir_final').addEventListener('click', () => {
 const monedero = document.getElementById('contenedor-monedero');
 monedero.style.animation = 'entrarMonedero 0.8s forwards';
 
-// const moneda1 = document.getElementById('moneda1');
-// moneda1.style.animation = 'bajarMoneda 5s linear forwards';
-// const moneda2 = document.getElementById('moneda2');
-// moneda2.style.animation = 'bajarMoneda 5s linear forwards';
-// const moneda3 = document.getElementById('moneda3');
-// moneda3.style.animation = 'bajarMoneda 5s linear forwards';

@@ -2,6 +2,7 @@ import { groupBy } from "../Utils/Utils.js";
 
 /**
  * Simula un combate por turnos entre el jugador y un enemigo estándar.
+ * 
  */
 export function batalla(jugador, enemigo) {
     let vidaJugador = jugador.vidaFinal ?? jugador.vida;
@@ -10,47 +11,40 @@ export function batalla(jugador, enemigo) {
     const danioJugador = jugador.ataqueFinal ?? jugador.ataque;
     const danioEnemigo = enemigo.ataque;
 
-    let ronda = 1;
+    // Solo mostramos el título del combate
     let resultadoHTML = `<h3>⚔️ ${jugador.nombre} vs ${enemigo.nombre}</h3>`;
 
+    // Bucle lógico 
     while (vidaJugador > 0 && vidaEnemigo > 0) {
-
+        // Turno Jugador
         const danioRealJugador = Math.max(1, danioJugador - (enemigo.defensa ?? 0) / 2);
-
-        const defensaJugador = jugador.defensaFinal ?? jugador.defensa;
-        const danioRealEnemigo = Math.max(1, danioEnemigo - defensaJugador / 2);
-        // --------------------------
-
-        resultadoHTML += `
-          <div class="ronda">
-            <strong>🩸 Ronda ${ronda}</strong><br>
-            <span class="ataque_jugador">${jugador.nombre} inflige ${danioRealJugador} de daño a ${enemigo.nombre}.</span><br>
-        `;
-
         vidaEnemigo -= danioRealJugador;
 
         if (vidaEnemigo <= 0) {
             vidaEnemigo = 0;
-            resultadoHTML += `<span>${enemigo.nombre} ha caído.</span></div>`;
-            break;
+            break; // El enemigo murió, salimos del bucle
         }
 
-        resultadoHTML += `<span class="ataque_enemigo">${enemigo.nombre} inflige ${danioRealEnemigo} de daño a ${jugador.nombre}.</span></div>`;
+        // Turno Enemigo
+        const defensaJugador = jugador.defensaFinal ?? jugador.defensa;
+        const danioRealEnemigo = Math.max(1, danioEnemigo - defensaJugador / 2);
         vidaJugador -= danioRealEnemigo;
-        ronda++;
     }
 
+    // Resultado final
     if (vidaEnemigo <= 0) {
         const puntosGanados = 100 + enemigo.ataque;
         jugador.puntos += puntosGanados;
         jugador.vida += 100;
-
         jugador.dinero += 5;
-        const puntosTotal = jugador.puntos + jugador.dinero + puntosGanados; 
-        resultadoHTML += `<h4>🏆 ${jugador.nombre} ha ganado (${puntosTotal} pts, +5 monedas y salud + 100</h4>`;
+
+        // Se usa la puntuación actualizada
+        const puntosTotal = jugador.puntos; 
+        
+        resultadoHTML += `<h4>🏆 ${jugador.nombre} ha ganado (${puntosGanados} pts obtenidos, +5 monedas y salud +100)</h4>`;
         resultadoHTML += `
             <div class="contenedor-monedas-victoria">
-                <img src="IMG/moneda.png" class="moneda-animada" style="animation-duration: 2;" alt="Moneda">
+                <img src="IMG/moneda.png" class="moneda-animada" style="animation-duration: 2s;" alt="Moneda">
                 <img src="IMG/moneda.png" class="moneda-animada" style="animation-duration: 2s;" alt="Moneda">
                 <img src="IMG/moneda.png" class="moneda-animada" style="animation-duration: 2s;" alt="Moneda">
             </div>
@@ -64,6 +58,7 @@ export function batalla(jugador, enemigo) {
 
 /**
  * Simula el combate final contra un Jefe.
+ * (Sin imprimir el log de rondas)
  */
 export function batallaJefe(jugador, jefe) {
     let vidaJugador = jugador.vidaFinal ?? jugador.vida;
@@ -72,42 +67,34 @@ export function batallaJefe(jugador, jefe) {
     const danioJugador = jugador.ataqueFinal ?? jugador.ataque; 
     const danioJefe = jefe.ataque;
 
-    let ronda = 1;
     let resultadoHTML = `<h3>⚔️ ${jugador.nombre} vs ${jefe.nombre}</h3>`;
 
+    // Bucle lógico 
     while (vidaJugador > 0 && vidaJefe > 0) {
+        // Turno Jugador
         const danioRealJugador = Math.max(1, danioJugador - (jefe.defensa ?? 0) / 2);
-
-        // --- 🔴 CORRECCIÓN AQUÍ TAMBIÉN ---
-        const defensaJugador = jugador.defensaFinal ?? jugador.defensa;
-        const danioRealJefe = Math.max(1, danioJefe - defensaJugador / 2);
-        // ----------------------------------
-
-        resultadoHTML += `
-          <div class="ronda">
-            <strong>🩸 Ronda ${ronda}</strong><br>
-            <span class="ataque_jugador">${jugador.nombre} inflige ${danioRealJugador} de daño a ${jefe.nombre}.</span><br>
-        `;
-
         vidaJefe -= danioRealJugador;
 
         if (vidaJefe <= 0) {
             vidaJefe = 0;
-            resultadoHTML += `<span>${jefe.nombre} ha caído.</span></div>`;
             break;
         }
 
-        resultadoHTML += `<span class="ataque_enemigo">${jefe.nombre} inflige ${danioRealJefe} de daño a ${jugador.nombre}.</span></div>`;
+        // Turno Jefe
+        const defensaJugador = jugador.defensaFinal ?? jugador.defensa;
+        const danioRealJefe = Math.max(1, danioJefe - defensaJugador / 2);
         vidaJugador -= danioRealJefe;
-        ronda++;
     }
 
+    // Resultado final
     if (vidaJefe <= 0) {
         const puntosGanados = (100 + jefe.ataque) * (jefe.multiplicador ?? 1);
         jugador.puntos += puntosGanados;
         jugador.dinero += 10;
-        const puntosTotal = jugador.puntos + jugador.dinero + puntosGanados; // Corregido variable local
-        resultadoHTML += `<h4>🏆 ${jugador.nombre} ha ganado el juego (${puntosTotal} pts) y ha ganado 10 monedas, ENHORABUENA</h4>`;
+        
+        const puntosTotal = jugador.puntos;
+
+        resultadoHTML += `<h4>🏆 ${jugador.nombre} ha ganado el juego (Total: ${puntosTotal} pts) y ha ganado 10 monedas, ENHORABUENA</h4>`;
         resultadoHTML += `
             <div class="contenedor-monedas-victoria">
                 <img src="IMG/moneda.png" class="moneda-animada" style="animation-duration: 2s;" alt="Moneda">
@@ -122,6 +109,7 @@ export function batallaJefe(jugador, jefe) {
     return resultadoHTML;
 }
 
+// La función mostrarRanking se mantiene igual ya que no imprime rondas de combate
 export function mostrarRanking(jugador) {
     const rankingDiv = document.getElementById('ranking_final');
 

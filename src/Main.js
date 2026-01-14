@@ -415,14 +415,8 @@ document.getElementById('volver_inicio').addEventListener('click', () => {
     location.reload();
 });
 
-document.getElementById('verRanking').addEventListener('click', () => {
-    const playerNombre = localStorage.getItem("jugador.nombre");
-    const playerPuntos = localStorage.getItem("jugador.puntos");
-    const playerMonedas = localStorage.getItem("jugador.dinero");
-
-    console.log(localStorage.getItem("playerNombre"));
-    console.log(localStorage.getItem("playerPuntos"));
-    console.log(localStorage.getItem("playerMonedas"));
+document.getElementById('volver_inicio_global').addEventListener('click', () => {
+    location.reload();
 });
 
 /**

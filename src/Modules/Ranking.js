@@ -109,7 +109,7 @@ export function batallaJefe(jugador, jefe) {
     return resultadoHTML;
 }
 
-// La función mostrarRanking se mantiene igual ya que no imprime rondas de combate
+// La función mostrarRanking 
 export function mostrarRanking(jugador) {
     const rankingDiv = document.getElementById('ranking_final');
 

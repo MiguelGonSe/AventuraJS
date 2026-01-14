@@ -109,7 +109,7 @@
 
 #look_stats input[type="text"] {
     font-family: var(--font-pixel);
-    font-size: 12px;
+    font-size: 9px;
     padding: 5px 10px;
     border: 3px solid var(--color-secondary);
     border-radius: 10px;
@@ -494,16 +494,12 @@
     font-size: 20px;
 }
 
-#enemigo h4 {
-    color: var(--color-primary);
-}
-
 #pantallaBatalla {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     margin-bottom: 20px;
 }
 
@@ -580,16 +576,12 @@
     font-size: 20px;
 }
 
-#jefe h4 {
-    color: var(--color-primary);
-}
-
 #jefe #pantallaBatalla {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     margin-bottom: 20px;
 }
 
@@ -663,7 +655,19 @@
     margin-top: 20px;
 }
 
-#ranking button#volver_inicio:hover {
+#ranking button#volver_inicio_global {
+    background-color: var(--color-bg-dark);
+    border: 3px solid var(--color-secondary);
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: var(--font-pixel);
+    color: var(--color-text);
+    transition: all 0.2s ease;
+    margin-top: 20px;
+}
+
+#ranking button#volver_inicio_global:hover {
     background-color: var(--color-secondary);
     color: var(--color-bg-dark);
     transform: scale(1.1);
@@ -785,12 +789,6 @@
 
 /* BATALLA CONJUNTA  */
 
-#pantallaBatalla {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .ataque_jugador {
     color: var(--color-success);
 }
@@ -807,6 +805,14 @@
 
 /* RESPONSIVE */
 
+@media (width < 1090px) {
+
+    #verEnemigo span {
+        font-size: 14px;
+    }
+
+}
+
 @media (width < 800px) {
     #marketItems {
         box-shadow: 0 4px 10px var(--color-bg-dark);
@@ -818,6 +824,22 @@
     #verEnemigo h1 {
         font-size: 24px;
     }
+
+    #pantallaBatalla,
+    #jefe #pantallaBatalla {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        margin-bottom: 20px;
+        flex-wrap: nowrap;
+    }
+
+    #verEnemigo span {
+        font-size: 12px;
+    }
+
 }
 
 @media (max-width < 600px) {
@@ -831,6 +853,20 @@
     #verEnemigo h1 {
         font-size: 24px;
     }
+
+    .rival-card {
+        width: 60%;
+        max-width: none;
+    }
+
+    #verEnemigo h1 {
+        font-size: 24px;
+    }
+
+    #verEnemigo span {
+        font-size: 10px;
+    }
+
 }
 
 @media (width < 520px) {
@@ -846,12 +882,12 @@
     }
 
     .rival-card {
-        width: 90%;
+        width: 60%;
         max-width: none;
     }
 
     #verEnemigo h1 {
-        font-size: 24px;
+        font-size: 20px;
     }
 }
 
@@ -861,6 +897,22 @@
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         grid-template-rows: repeat(1, 1fr);
+    }
+
+    header {
+        height: auto;
+        margin: 0;
+        padding: 10px 0;
+    }
+
+    #titulo {
+        margin: 5px 0;
+        font-size: 24px;
+    }
+
+    .rival-card {
+        width: 70%;
+        max-width: none;
     }
 }
 
@@ -872,9 +924,7 @@ main {
     /* Si el contenido es más grande, aparece scroll SOLO aquí */
     overflow-y: auto;
     overflow-x: hidden;
-    /* Evitamos scroll lateral indeseado */
 
-    /* Alineación del contenido */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -886,10 +936,8 @@ main {
 main>div {
     width: 100%;
     display: flex;
-    /* Para poder centrar cosas dentro si quieres */
     flex-direction: column;
     align-items: center;
-    /* justify-content: center; <--- Activa esto solo si quieres centrar verticalmente pantallas con poco contenido */
 }
 
 header {
@@ -901,7 +949,6 @@ header {
     flex-shrink: 0;
     /* Evita que se encoja */
     background-color: transparent;
-    /* O el color que quieras */
 }
 
 body {
@@ -971,7 +1018,6 @@ body {
     color: #fff;
     font-family: var(--font-pixel);
     font-size: 10px;
-    /* Tamaño acorde a la imagen */
     font-weight: bold;
     text-shadow: 2px 2px 0px #000;
     z-index: 10;

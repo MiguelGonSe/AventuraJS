@@ -12,7 +12,7 @@ export function batalla(jugador, enemigo) {
     const danioEnemigo = enemigo.ataque;
 
     // Solo mostramos el título del combate
-    let resultadoHTML = `<h3>⚔️ ${jugador.nombre} vs ${enemigo.nombre}</h3>`;
+    let resultadoHTML = `<h3>${jugador.nombre} vs ${enemigo.nombre}</h3>`;
 
     // Bucle lógico 
     while (vidaJugador > 0 && vidaEnemigo > 0) {
@@ -22,7 +22,7 @@ export function batalla(jugador, enemigo) {
 
         if (vidaEnemigo <= 0) {
             vidaEnemigo = 0;
-            break; // El enemigo murió, salimos del bucle
+            break; 
         }
 
         // Turno Enemigo
@@ -41,7 +41,7 @@ export function batalla(jugador, enemigo) {
         // Se usa la puntuación actualizada
         const puntosTotal = jugador.puntos; 
         
-        resultadoHTML += `<h4>🏆 ${jugador.nombre} ha ganado (${puntosGanados} pts obtenidos, +5 monedas y salud +100)</h4>`;
+        resultadoHTML += `<h4>${jugador.nombre} ha ganado (${puntosGanados} pts obtenidos, +5 monedas y salud +100)</h4>`;
         resultadoHTML += `
             <div class="contenedor-monedas-victoria">
                 <img src="IMG/moneda.png" class="moneda-animada" style="animation-duration: 2s;" alt="Moneda">
@@ -50,7 +50,7 @@ export function batalla(jugador, enemigo) {
             </div>
         `;
     } else {
-        resultadoHTML += `<h4>💀 ${enemigo.nombre} ha ganado. ¡Has perdido!</h4>`;
+        resultadoHTML += `<h4>${enemigo.nombre} ha ganado. ¡Has perdido!</h4>`;
     }
 
     return resultadoHTML;
@@ -67,7 +67,7 @@ export function batallaJefe(jugador, jefe) {
     const danioJugador = jugador.ataqueFinal ?? jugador.ataque; 
     const danioJefe = jefe.ataque;
 
-    let resultadoHTML = `<h3>⚔️ ${jugador.nombre} vs ${jefe.nombre}</h3>`;
+    let resultadoHTML = `<h3>${jugador.nombre} vs ${jefe.nombre}</h3>`;
 
     // Bucle lógico 
     while (vidaJugador > 0 && vidaJefe > 0) {
@@ -94,7 +94,7 @@ export function batallaJefe(jugador, jefe) {
         
         const puntosTotal = jugador.puntos;
 
-        resultadoHTML += `<h4>🏆 ${jugador.nombre} ha ganado el juego (Total: ${puntosTotal} pts) y ha ganado 10 monedas, ENHORABUENA</h4>`;
+        resultadoHTML += `<h4>${jugador.nombre} ha ganado el juego (Total: ${puntosTotal} pts) y ha ganado 10 monedas, ENHORABUENA</h4>`;
         resultadoHTML += `
             <div class="contenedor-monedas-victoria">
                 <img src="IMG/moneda.png" class="moneda-animada" style="animation-duration: 2s;" alt="Moneda">
@@ -103,7 +103,7 @@ export function batallaJefe(jugador, jefe) {
             </div>
         `;
     } else {
-        resultadoHTML += `<h4>💀 ${jefe.nombre} ha ganado. ¡Has perdido!</h4>`;
+        resultadoHTML += `<h4>${jefe.nombre} ha ganado. ¡Has perdido!</h4>`;
     }
 
     return resultadoHTML;

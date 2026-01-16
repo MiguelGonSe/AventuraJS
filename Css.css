@@ -638,7 +638,7 @@
     margin-bottom: 30px;
 }
 
-#ranking img{
+#ranking img {
     width: 20rem;
 }
 
@@ -949,11 +949,11 @@ header {
     height: 10vh;
     width: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-shrink: 0;
     /* Evita que se encoja */
     background-color: transparent;
+    justify-content: space-around;
 }
 
 body {
@@ -1136,4 +1136,51 @@ body {
     text-align: left;
     padding-left: 20px;
     width: 60%;
+}
+
+.tooltip-container {
+    top: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip-text {
+    margin-bottom: 100px;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: opacity 0.3s;
+}
+
+.tooltip-container:hover {
+    margin-bottom: 80px;
+    font-size: 10px;
+    transition: ease 0.6s;
+}
+
+.estrella {
+    width: 20px;
+    height: 20px;
+    background-color: gold;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    animation: girar 4s linear infinite;
+}
+
+#estrellas {
+    display: flex;
+    justify-content: flex-end;
+}
+
+@keyframes girar {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
